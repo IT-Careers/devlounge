@@ -9,5 +9,13 @@ namespace DevLounge.Service.Models
         public DateTime CreatedOn { get; set; }
 
         public DevLoungeUserDto CreatedBy { get; set; }
+
+        public DateTime ModifiedOn { get; set; }
+
+        public DevLoungeUserDto ModifiedBy { get; set; }
+
+        public DateTime DeletedOn { get; set; }
+
+        public DevLoungeUserDto DeletedBy { get; set; }
     }
 }

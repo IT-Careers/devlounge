@@ -1,89 +1,33 @@
-﻿@*
+﻿@model HomeViewModel
+
+@*
     For more information on enabling MVC for empty projects, visit https://go.microsoft.com/fwlink/?LinkID=397860
 *@
 @{
     Layout = "_MainLayout";
 }
 
-<h1 class="forum-content-main-heading">Threads</h1>
-<section class="forum-content-section">
-    <h1 class="forum-content-section-heading">General</h1>
-    <div class="forum-content-section-categories">
-        <div class="forum-content-category">
-            <img class="forum-content-category-icon" src="~/images/icons/code-icon.png" alt="..." />
-            <div class="forum-content-category-info">
-                <div class="forum-content-category-details">
-                    <a class="forum-content-category-title" href="#">Introductions</a>
-                    <span class="forum-content-category-description">Tell us something about yourself so that we could welcome you into our ranks.</span>
+<h1 class="forum-content-main-heading">Sections</h1>
+@foreach(var forumSection in Model.Sections) 
+{
+    <section class="forum-content-section">
+        <h1 class="forum-content-section-heading">@forumSection.Name</h1>
+        <div class="forum-content-section-categories">
+            @foreach(var forumCategory in forumSection.Categories) 
+            {
+                <div class="forum-content-category">
+                    <img class="forum-content-category-icon" src="@forumCategory.ThumbnailImageUrl" alt="..." />
+                    <div class="forum-content-category-info">
+                        <div class="forum-content-category-details">
+                            <a class="forum-content-category-title" href="#">@forumCategory.Name</a>
+                            <span class="forum-content-category-description">@forumCategory.Description</span>
+                        </div>
+                        <div class="forum-content-category-latest-topic">
+                            <a class="forum-content-category-latest-topic-title" href="#">Greetings!</a>
+                            <span class="forum-content-category-latest-topic-details">Posted by samuel.jackson at 03:34 on 12.12.2022</span>
+                        </div>
+                    </div>
                 </div>
-                <div class="forum-content-category-latest-topic">
-                    <a class="forum-content-category-latest-topic-title" href="#">Greetings!</a>
-                    <span class="forum-content-category-latest-topic-details">Posted by samuel.jackson at 03:34 on 12.12.2022</span>
-                </div>
-            </div>
-        </div>
-    </div>
-    <div class="forum-content-section-categories">
-        <div class="forum-content-category">
-            <img class="forum-content-category-icon" src="~/images/icons/code-icon.png" alt="..." />
-            <div class="forum-content-category-info">
-                <div class="forum-content-category-details">
-                    <a class="forum-content-category-title" href="#">Memes</a>
-                    <span class="forum-content-category-description">Let's have some fun with some classical memes.</span>
-                </div>
-                <div class="forum-content-category-latest-topic">
-                    <a class="forum-content-category-latest-topic-title" href="#">This section needs a NSFW category!</a>
-                    <span class="forum-content-category-latest-topic-details">Posted by samuel.jackson at 03:34 on 12.12.2022</span>
-                </div>
-            </div>
-        </div>
-    </div>
-</section>
-<section class="forum-content-section">
-    <h1 class="forum-content-section-heading">Programming</h1>
-    <div class="forum-content-section-categories">
-        <div class="forum-content-category">
-            <img class="forum-content-category-icon" src="~/images/icons/code-icon.png" alt="..." />
-            <div class="forum-content-category-info">
-                <div class="forum-content-category-details">
-                    <a class="forum-content-category-title" href="#">Basics</a>
-                    <span class="forum-content-category-description">A category for all entry-level programming questions.</span>
-                </div>
-                <div class="forum-content-category-latest-topic">
-                    <a class="forum-content-category-latest-topic-title" href="#">Need help with homework</a>
-                    <span class="forum-content-category-latest-topic-details">Posted by samuel.jackson at 03:34 on 12.12.2022</span>
-                </div>
-            </div>
-        </div>
-    </div>
-    <div class="forum-content-section-categories">
-        <div class="forum-content-category">
-            <img class="forum-content-category-icon" src="~/images/icons/code-icon.png" alt="..." />
-            <div class="forum-content-category-info">
-                <div class="forum-content-category-details">
-                    <a class="forum-content-category-title" href="#">C#</a>
-                    <span class="forum-content-category-description">A category for all C# programming questions.</span>
-                </div>
-                <div class="forum-content-category-latest-topic">
-                    <a class="forum-content-category-latest-topic-title" href="#">Need help with homework</a>
-                    <span class="forum-content-category-latest-topic-details">Posted by samuel.jackson at 03:34 on 12.12.2022</span>
-                </div>
-            </div>
-        </div>
-    </div>
-    <div class="forum-content-section-categories">
-        <div class="forum-content-category">
-            <img class="forum-content-category-icon" src="~/images/icons/code-icon.png" alt="..." />
-            <div class="forum-content-category-info">
-                <div class="forum-content-category-details">
-                    <a class="forum-content-category-title" href="#">HTML & CSS</a>
-                    <span class="forum-content-category-description">A category for all HTML & CSS programming questions.</span>
-                </div>
-                <div class="forum-content-category-latest-topic">
-                    <a class="forum-content-category-latest-topic-title" href="#">Need help with homework</a>
-                    <span class="forum-content-category-latest-topic-details">Posted by samuel.jackson at 03:34 on 12.12.2022</span>
-                </div>
-            </div>
-        </div>
-    </div>
-</section>
+            }
+    </section>
+}

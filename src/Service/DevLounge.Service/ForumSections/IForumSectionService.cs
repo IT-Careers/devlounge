@@ -6,7 +6,7 @@ namespace DevLounge.Service.ForumSections
     {
         Task<ForumSectionDto> CreateForumSection(ForumSectionDto forumSectionDto);
 
-        IQueryable<ForumSectionDto> GetAllForumSections(bool isExtended = false);
+        IQueryable<ForumSectionDto> GetAllForumSections(bool isExtended = false, bool fetchDeleted = false);
 
         Task<ForumSectionDto> GetForumSectionById(long id);
 

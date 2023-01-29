@@ -1,5 +1,6 @@
 using DevLounge.Data;
 using DevLounge.Data.Models;
+using DevLounge.Data.Repositories;
 using DevLounge.Service.ForumCategories;
 using DevLounge.Service.ForumSections;
 using DevLounge.Web.Seed;
@@ -18,6 +19,7 @@ namespace DevLounge.Web
             builder.Services.AddDbContext<DevLoungeDbContext>(options =>
                 options.UseSqlServer(connectionString));
 
+            builder.Services.AddTransient<ForumSectionRepository, ForumSectionRepository>();
             builder.Services.AddTransient<IForumSectionService, ForumSectionService>();
             builder.Services.AddTransient<IForumCategoryService, ForumCategoryService>();
 
@@ -34,7 +36,9 @@ namespace DevLounge.Web
                 .AddRoles<IdentityRole>()
                 .AddEntityFrameworkStores<DevLoungeDbContext>();
 
+
             builder.Services.AddRazorPages();
+            builder.Services.AddHttpContextAccessor();
         }
 
         private static void ConfigureAndRunApplication(WebApplicationBuilder builder)

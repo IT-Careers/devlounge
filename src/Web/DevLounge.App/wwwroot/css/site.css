@@ -1,4 +1,14 @@
 /* Global Styles */
+/* Global Styles */
+:root {
+    --red-color: #F08080;
+    --dark-blue-color: #00008D;
+}
+
+body {
+    font-family: Consolas, serif;
+}
+
 a {
     text-decoration: none;
     outline: none;
@@ -356,6 +366,24 @@ a {
     color: #FFFFFF;
 }
 
+/* Forum Admin Panel Context Menu Styling */
+
+.forum-admin-panel-context-menu {
+    position: fixed;
+    display: none;
+    border-radius: 10px;
+    border: 1px solid #BDBDBD;
+    background-color: #FFFFFF;
+    padding: 5px;
+    z-index: 1001;
+}
+
+.forum-admin-panel-menu-item {
+    padding: 5px 10px;
+    margin: 10px 0;
+    cursor: pointer;
+}
+
 /* Create Section Page Styling */
 
 .create-section-form-holder {
@@ -427,3 +455,242 @@ a {
     font-size: 20px;
     color: #00008B;
 }
+
+/* Forum Section Details Page Styling */
+
+.forum-section-details-wrapper {
+    width: 100%;
+}
+
+.forum-section-details-info {
+    display: flex;
+    justify-content: space-between;
+}
+
+.forum-section-details-primary-info {
+    width: 50%;
+    margin-top: 20px;
+}
+
+.forum-section-details-secondary-info {
+    width: 50%;
+    display: flex;
+    flex-direction: column;
+}
+
+.forum-section-details-secondary-info-row {
+    display: flex;
+    justify-content: space-around;
+    margin-top: 20px;
+}
+
+    .forum-section-details-secondary-info-row > * {
+        width: 30%;
+        font-size: 20px;
+        display: flex;
+        flex-direction: column;
+        text-align: center;
+    }
+
+    .forum-section-details-secondary-info-row span:first-child {
+        font-weight: bold;
+        font-size: 22px;
+    }
+
+    .forum-section-details-secondary-info-row span:not(:first-child) {
+        margin-top: 10px;
+    }
+
+.forum-section-details-name {
+    font-size: 30px;
+    font-weight: bold;
+}
+
+.forum-section-details-divisor {
+    height: 2px;
+    background-color: #00008B;
+}
+
+.forum-section-details-categories-heading {
+    font-weight: bold;
+    font-size: 25px;
+    margin-top: 100px;
+    width: 100%;
+}
+
+.forum-section-details-categories {
+    width: 95%;
+    margin-top: 25px;
+    margin-bottom: 100px;
+}
+
+    .forum-section-details-categories tbody {
+        display: block;
+        height: 50vh;
+        overflow-y: auto;
+    }
+
+    .forum-section-details-categories thead tr {
+        display: table;
+        width: 100%;
+        height: 50px;
+        font-size: 21px;
+        font-weight: bold;
+        background-color: #EDEDED;
+    }
+
+        .forum-section-details-categories thead tr th {
+            padding: 15px 10px;
+            text-align: start;
+        }
+
+            .forum-section-details-categories thead tr th:first-child {
+                border-radius: 10px 0 0 10px;
+            }
+
+            .forum-section-details-categories thead tr th:last-child {
+                border-radius: 0 10px 10px 0;
+            }
+
+    .forum-section-details-categories tbody tr {
+        display: table;
+        width: 100%;
+        height: 25px;
+        font-size: 19px;
+    }
+
+        .forum-section-details-categories tbody tr td {
+            padding: 15px 10px;
+        }
+
+            .forum-section-details-categories tbody tr td:not(:nth-child(2)) {
+                vertical-align: middle;
+            }
+
+.forum-section-details-description {
+    font-size: 20px;
+}
+
+.forum-section-details-category-id {
+    width: 10%;
+}
+
+.forum-section-details-category-thumbnail {
+    width: 15%;
+}
+
+    .forum-section-details-category-thumbnail img {
+        max-height: 100px;
+        max-width: 100px;
+    }
+
+.forum-section-details-category-name {
+    width: 25%;
+}
+
+.forum-section-details-category-created-by {
+    width: 25%;
+}
+
+.forum-section-details-category-created-on {
+    width: 25%;
+}
+
+/* Forum Admin Panel Delete Modal Styling */
+
+.forum-admin-panel-delete-modal {
+    display: none;
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100vw;
+    height: 100vh;
+    z-index: 1002;
+}
+
+.forum-admin-panel-delete-modal-backdrop {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: rgba(150, 150, 150, 0.7);
+    z-index: 1003;
+}
+
+.forum-admin-panel-delete-modal-body {
+    position: fixed;
+    display: flex;
+    flex-direction: column;
+    background-color: #FFFFFF;
+    border: 5px solid var(--red-color);
+    width: 450px;
+    height: 350px;
+    left: calc(100% - 50% - 225px);
+    top: calc(100% - 50% - 175px);
+    border-radius: 10px;
+    z-index: 1004;
+}
+
+.forum-admin-panel-delete-modal-title {
+    font-size: 25px;
+    font-weight: bold;
+    text-align: center;
+    padding: 15px 25px;
+    color: var(--red-color);
+    margin-top: 10px;
+}
+
+.forum-admin-panel-delete-modal-divisor {
+    height: 2px;
+    background-color: var(--red-color);
+    border: none;
+    width: 85%;
+}
+
+.forum-admin-panel-delete-modal-content {
+    font-size: 22px;
+    color: var(--dark-blue-color);
+    text-align: center;
+    padding: 10px 25px;
+    line-height: 40px;
+    height: 135px;
+}
+
+.forum-admin-panel-delete-modal-actions {
+    display: flex;
+    justify-content: space-around;
+    margin-top: 25px;
+}
+
+.forum-admin-panel-delete-modal-confirm,
+.forum-admin-panel-delete-modal-cancel {
+    padding: 10px 20px;
+    font-size: 20px;
+    font-weight: bold;
+    border-radius: 10px;
+    outline: none;
+    border: none;
+}
+
+.forum-admin-panel-delete-modal-confirm {
+    background-color: #FFFFFF;
+    color: var(--red-color);
+    border: 2px solid var(--red-color);
+}
+
+    .forum-admin-panel-delete-modal-confirm:hover {
+        background-color: var(--red-color);
+        color: #FFFFFF;
+    }
+
+.forum-admin-panel-delete-modal-cancel {
+    border: 2px solid var(--dark-blue-color);
+    color: var(--dark-blue-color);
+    background-color: transparent;
+}
+
+    .forum-admin-panel-delete-modal-cancel:hover {
+        background-color: var(--dark-blue-color);
+        color: #FFFFFF;
+    }

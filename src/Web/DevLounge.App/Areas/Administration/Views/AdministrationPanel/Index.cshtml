@@ -4,14 +4,14 @@
 }
 
 <main class="forum-admin-panel">
-    <div class="forum-admin-panel-column">
+    <div class="forum-admin-panel-column forum-admin-panel-sections">
         <header class="forum-admin-panel-column-header">Sections</header>
         <main class="forum-admin-panel-column-content">
             @foreach(var forumSection in Model.Sections) {
                 <div class="forum-admin-panel-column-element">
-                    <div class="forum-admin-panel-column-element-label">@forumSection.Name</div>
+                    <div class="forum-admin-panel-column-element-label">@(forumSection.DeletedBy != null ? "[Deleted] " + forumSection.Name : forumSection.Name)</div>
                     <div class="forum-admin-panel-column-element-actions">
-                        <img src="~/images/icons/kebab-menu.svg" />
+                        <img src="~/images/icons/kebab-menu.svg" id="@forumSection.Id" data-name="@forumSection.Name" />
                     </div>
                 </div>
             }
@@ -78,3 +78,6 @@
         </footer>
     </div>
 </main>
+
+<partial name="_AdminPanelDeleteModalPartial" />
+<partial name="_AdminPanelContextMenuPartial" />

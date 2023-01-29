@@ -27,7 +27,11 @@ namespace DevLounge.Service.Mapping.ForumSections
                 Name = forumSection.Name,
                 Description = forumSection.Description,
                 CreatedOn = forumSection.CreatedOn,
-                CreatedBy = isExtended ? forumSection.CreatedBy?.ToDto() : null,
+                CreatedBy = forumSection.CreatedBy?.ToDto(),
+                ModifiedOn = forumSection.ModifiedOn,
+                ModifiedBy = forumSection.ModifiedBy?.ToDto(),
+                DeletedOn = forumSection.DeletedOn,
+                DeletedBy = forumSection.DeletedBy?.ToDto(),
                 Categories = isExtended ? forumSection.Categories?.Select(category => category.ToDto()).ToList() : null
             };
         }

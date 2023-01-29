@@ -1,0 +1,85 @@
+﻿@model ForumSectionDto
+
+@{
+    var modifiedBy = (Model.ModifiedBy != null ? Model.ModifiedBy.UserName : "N / A");
+    var modifiedOn = (Model.ModifiedBy != null ? Model.ModifiedOn.ToString("dd/MM/yyyy") : "N / A");
+
+    var deletedBy = (Model.DeletedBy != null ? Model.DeletedBy.UserName : "N / A");
+    var deletedOn = (Model.DeletedBy != null ? Model.DeletedOn.ToString("dd/MM/yyyy") : "N / A");
+}
+
+<div class="forum-section-details-wrapper">
+    <div class="forum-section-details-info">
+        <div class="forum-section-details-primary-info">
+            <h1 class="forum-section-details-name">@Model.Name</h1>
+            <hr class="forum-section-details-divisor" />
+            <p class="forum-section-details-description">
+                @Model.Description
+            </p>
+        </div>
+        <div class="forum-section-details-secondary-info">
+            <div class="forum-section-details-secondary-info-row">
+                <div class="forum-section-details-id">
+                    <span>Id</span>
+                    <span>@Model.Id</span>
+                </div>
+                <div class="forum-section-details-created-by">
+                    <span>Created by</span>
+                    <span>@Model.CreatedBy.UserName</span>
+                </div>
+                <div class="forum-section-details-created-on">
+                    <span>Created on</span>
+                    <span>@Model.CreatedOn.ToString("dd/MM/yyyy")</span>
+                </div>
+            </div>
+            <div class="forum-section-details-secondary-info-row">
+                <div class="forum-section-details-id">
+                </div>
+                <div class="forum-section-details-created-by">
+                    <span>Modified by</span>
+                    <span>@modifiedBy</span>
+                </div>
+                <div class="forum-section-details-created-on">
+                    <span>Modified on</span>
+                    <span>@modifiedOn</span>
+                </div>
+            </div>
+            <div class="forum-section-details-secondary-info-row">
+                <div class="forum-section-details-id">
+                </div>
+                <div class="forum-section-details-created-by">
+                    <span>Deleted by</span>
+                    <span>@deletedBy</span>
+                </div>
+                <div class="forum-section-details-created-on">
+                    <span>Deleted on</span>
+                    <span>@deletedOn</span>
+                </div>
+            </div>
+        </div>
+    </div>
+    <h1 class="forum-section-details-categories-heading">Section Categories</h1>
+    <table class="forum-section-details-categories">
+        <thead>
+            <tr>
+                <th class="forum-section-details-category-id">Id</th>
+                <th class="forum-section-details-category-thumbnail">Thumbnail</th>
+                <th class="forum-section-details-category-name">Name</th>
+                <th class="forum-section-details-category-created-by">Created By</th>
+                <th class="forum-section-details-category-created-on">Created On</th>
+            </tr>
+        </thead>
+        <tbody>
+            @foreach (var category in Model.Categories)
+            {
+                <tr>
+                    <td class="forum-section-details-category-id">@category.Id</td>
+                    <td class="forum-section-details-category-thumbnail"><img src="@category.ThumbnailImageUrl" alt="..."></td>
+                    <td class="forum-section-details-category-name">@category.Name</td>
+                    <td class="forum-section-details-category-created-by">@category.CreatedBy.UserName</td>
+                    <td class="forum-section-details-category-created-on">@category.CreatedOn.ToString("dd/MM/yyyy")</td>
+                </tr>
+            }
+        </tbody>
+    </table>
+</div>

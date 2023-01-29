@@ -22,8 +22,7 @@ namespace DevLounge.Web.Areas.Administration.Controllers
         {
             return View(new AdministrationPanelModel 
             {
-                // TODO: Includes categories in service... Probably a bad idea
-                Sections = this.forumSectionService.GetAllForumSections().ToList(),
+                Sections = this.forumSectionService.GetAllForumSections(false, true).ToList(),
                 Categories = this.forumCategoryService.GetAllForumCategories().ToList()
             });
         }

@@ -37,9 +37,31 @@ namespace DevLounge.Web.Areas.Administration.Controllers
         }
 
         [HttpGet("{id}")]
-        public async Task<IActionResult> GetById(long id)
+        public async Task<IActionResult> Details(long id)
         {
-            return Ok(await this.forumSectionService.GetForumSectionById(id));
+            return View(await this.forumSectionService.GetForumSectionById(id));
+        }
+
+        [HttpGet("Edit/{id}")]
+        public async Task<IActionResult> Edit(long id)
+        {
+            return View(await this.forumSectionService.GetForumSectionById(id));
+        }
+
+        [HttpPost("Edit/{id}")]
+        public async Task<IActionResult> EditConfirm(long id, ForumSectionDto forumSectionDto)
+        {
+            await this.forumSectionService.UpdateForumSection(id, forumSectionDto);
+
+            return Redirect("/Administration/Home");
+        }
+
+        [HttpPost("Delete/{id}")]
+        public async Task<IActionResult> DeleteConfirm(long id)
+        {
+            await this.forumSectionService.DeleteForumSection(id);
+
+            return Redirect("/Administration/Home");
         }
     }
 }
