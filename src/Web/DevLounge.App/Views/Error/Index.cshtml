@@ -1,0 +1,23 @@
+﻿@model ErrorModel
+
+<div class="error-page-holder">
+    <h1 class="error-page-heading">An error has occured.</h1>
+    <hr />
+    <div class="error-page-comforting-message-holder">
+        <div>
+            <p class="error-page-comforting-message">
+                Don't worry! It's probably something small!
+            </p>
+            <p class="error-page-comforting-message">
+                Our developer monkeys are working on it.
+            </p>
+        </div>
+        <img class="error-page-comforting-image" src="~/images/developer_monkey.png" />
+    </div>
+    <p class="error-page-details">
+    <p class="error-page-message">Error details below:</p>
+    <hr />
+    <h3 class="error-page-message">Error message - @Model.Message</h3>
+    <h3 class="error-page-message">Timestamp - @Model.TimeStamp</h3>
+    </p>
+</div>

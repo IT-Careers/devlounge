@@ -1,0 +1,46 @@
+﻿@model ForumCategoryDto
+
+@{
+    List<ForumSectionDto> forumSections = (List<ForumSectionDto>) ViewData["Sections"];
+}
+
+<div class="create-category-form-holder">
+    <h1 class="forum-content-main-heading">Create Category</h1>
+    <form class="forum-form" 
+    asp-area="Administration" 
+    asp-controller="ForumCategoryAdministration" 
+    asp-action="Create" 
+    method="post">
+        <hr class="forum-login-divider" />
+        <div class="forum-form-group">
+            <label asp-for="Name" class="forum-form-label">Name</label>
+            <input asp-for="Name" class="forum-form-control" type="text" name="name" placeholder="Name..." />
+        </div>
+        <div class="forum-form-group">
+            <label asp-for="Description" class="forum-form-label">Description</label>
+            <input asp-for="Description" class="forum-form-control" type="text" name="description" placeholder="Description..." />
+        </div>
+        <div class="forum-form-group">
+            <label asp-for="ThumbnailImageUrl" class="forum-form-label">Thumbnail Image</label>
+            <input asp-for="ThumbnailImageUrl" class="forum-form-control" type="text" name="thumbnailImageUrl" placeholder="Thumbnail Image..." />
+        </div>
+        <div class="forum-form-group">
+            <label asp-for="CoverImageUrl" class="forum-form-label">Cover Image</label>
+            <input asp-for="CoverImageUrl" class="forum-form-control" type="text" name="coverImageUrl" placeholder="Cover Image..." />
+        </div>
+        <div class="forum-form-group">
+            <label class="forum-form-label">Section</label>
+            <select asp-for="Section.Id" class="forum-form-control">
+                <option value="0" disabled selected>--- Select Section ---</option>
+                @foreach(var forumSection in forumSections) {
+                    <option value="@forumSection.Id">@forumSection.Name</option>
+                }
+            </select>
+        </div>
+        <hr class="forum-login-divider" />
+        <div class="forum-form-buttons">
+            <button class="forum-form-button">Create Category</button>
+            <a asp-area="Administration" asp-controller="AdministrationPanelController" asp-action="Index" class="forum-form-button">Admin Panel</a>
+        </div>
+    </form>
+</div>

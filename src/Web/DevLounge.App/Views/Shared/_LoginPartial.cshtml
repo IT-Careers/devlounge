@@ -1,0 +1,31 @@
+﻿@using Microsoft.AspNetCore.Identity
+@using DevLounge.Data.Models;
+@inject SignInManager<DevLoungeUser> SignInManager
+@inject UserManager<DevLoungeUser> UserManager
+
+<ul class="forum-navigation-items">
+    @if (SignInManager.IsSignedIn(User))
+    {
+        <li class="forum-navigation-item">
+            <a asp-area="Administration" asp-controller="AdministrationPanel" asp-action="Index">Admin Panel</a>
+        </li>
+        <li class="forum-navigation-item">
+            <a asp-area="Identity" asp-page="/Account/Manage/Index">Hello @User.Identity?.Name!</a>
+        </li>
+        <li class="forum-navigation-item">
+            <a asp-area="Identity" asp-page="/Account/Logout">Logout</a>
+        </li>
+    }
+    else
+    {
+        <li class="forum-navigation-item">
+            <a asp-controller="Home" asp-action="Index">Home</a>
+        </li>
+        <li class="forum-navigation-item">
+            <a asp-area="Identity" asp-page="/Account/Login">Login</a>
+        </li>
+        <li class="forum-navigation-item">
+            <a asp-area="Identity" asp-page="/Account/Register">Register</a>
+        </li>
+    }
+</ul>

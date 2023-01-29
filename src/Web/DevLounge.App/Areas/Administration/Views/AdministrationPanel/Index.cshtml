@@ -1,0 +1,80 @@
+﻿@model AdministrationPanelModel
+
+@{
+}
+
+<main class="forum-admin-panel">
+    <div class="forum-admin-panel-column">
+        <header class="forum-admin-panel-column-header">Sections</header>
+        <main class="forum-admin-panel-column-content">
+            @foreach(var forumSection in Model.Sections) {
+                <div class="forum-admin-panel-column-element">
+                    <div class="forum-admin-panel-column-element-label">@forumSection.Name</div>
+                    <div class="forum-admin-panel-column-element-actions">
+                        <img src="~/images/icons/kebab-menu.svg" />
+                    </div>
+                </div>
+            }
+        </main>
+        <footer class="forum-admin-panel-column-options">
+            <div class="forum-admin-panel-create-button">
+                <span class="forum-admin-panel-create-button-icon">+</span>
+                <a asp-area="Administration" asp-controller="ForumSectionAdministration" asp-action="Create" class="forum-admin-panel-create-button-label">Create Section</a>
+            </div>
+        </footer>
+    </div>
+    <div class="forum-admin-panel-column">
+        <header class="forum-admin-panel-column-header">Categories</header>
+        <main class="forum-admin-panel-column-content">
+            @foreach (var forumCategory in Model.Categories)
+            {
+                <div class="forum-admin-panel-column-element">
+                    <div class="forum-admin-panel-column-element-label">@forumCategory.Name</div>
+                    <div class="forum-admin-panel-column-element-actions">
+                        <img src="~/images/icons/kebab-menu.svg" />
+                    </div>
+                </div>
+            }
+        </main>
+        <footer class="forum-admin-panel-column-options">
+            <div class="forum-admin-panel-create-button">
+                <span class="forum-admin-panel-create-button-icon">+</span>
+                <a asp-area="Administration" asp-controller="ForumCategoryAdministration" asp-action="Create" class="forum-admin-panel-create-button-label">Create Category</a>
+            </div>
+        </footer>
+    </div>
+    <div class="forum-admin-panel-column">
+        <header class="forum-admin-panel-column-header">Threads</header>
+        <main class="forum-admin-panel-column-content">
+            <div class="forum-admin-panel-column-element">
+                <div class="forum-admin-panel-column-element-label">Hello there! I'm Prakash!</div>
+                <div class="forum-admin-panel-column-element-actions">
+                    <img src="~/images/icons/kebab-menu.svg" />
+                </div>
+            </div>
+        </main>
+        <footer class="forum-admin-panel-column-options">
+            <div class="forum-admin-panel-create-button">
+                <span class="forum-admin-panel-create-button-icon">+</span>
+                <a href="create-thread.html" class="forum-admin-panel-create-button-label">Create Thread</a>
+            </div>
+        </footer>
+    </div>
+    <div class="forum-admin-panel-column">
+        <header class="forum-admin-panel-column-header">Users</header>
+        <main class="forum-admin-panel-column-content">
+            <div class="forum-admin-panel-column-element">
+                <div class="forum-admin-panel-column-element-label">GodGamer</div>
+                <div class="forum-admin-panel-column-element-actions">
+                    <img src="~/images/icons/kebab-menu.svg" />
+                </div>
+            </div>
+        </main>
+        <footer class="forum-admin-panel-column-options">
+            <div class="forum-admin-panel-create-button">
+                <span class="forum-admin-panel-create-button-icon">+</span>
+                <a href="create-user.html" class="forum-admin-panel-create-button-label">Create User</a>
+            </div>
+        </footer>
+    </div>
+</main>

@@ -1,0 +1,37 @@
+﻿<!doctype html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport"
+          content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>DevLounge</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/meyer-reset/2.0/reset.min.css">
+    <link rel="stylesheet" href="~/css/site.css" type="text/css" />
+</head>
+<body>
+    <div class="container">
+        <header class="forum-header">
+            <div class="forum-brand">
+                Forum
+            </div>
+            <nav class="forum-navigation">
+                <ul class="forum-navigation-items">
+                    <li class="forum-navigation-item">
+                        <a asp-area="Identity" asp-page="/Account/Manage/Index">Hello @User.Identity?.Name!</a>
+                    </li>
+                    <li class="forum-navigation-item">
+                        <a asp-area="Identity" asp-page="/Account/Logout">Logout</a>
+                    </li>
+                </ul>
+            </nav>
+        </header>
+        <main class="forum-content">
+            @RenderBody()
+        </main>
+        <footer class="forum-footer">
+            &#169; 2023 Sanity Design Studios | All rights reserved.
+        </footer>
+    </div>
+</body>
+</html>

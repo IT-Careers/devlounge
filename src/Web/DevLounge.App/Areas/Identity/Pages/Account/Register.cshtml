@@ -1,0 +1,28 @@
+﻿@page
+@model RegisterModel
+
+<h1 class="forum-content-main-heading">Register</h1>
+<form class="forum-form" method="post">
+    <hr class="forum-login-divider" />
+    <div class="forum-form-group">
+        <label asp-for="Input.Username" class="forum-form-label">Username</label>
+        <input asp-for="Input.Username" class="forum-form-control" type="text" name="username" placeholder="Username..." />
+    </div>
+    <div class="forum-form-group">
+        <label asp-for="Input.Email" class="forum-form-label">Email</label>
+        <input asp-for="Input.Email" class="forum-form-control" type="text" name="email" placeholder="Email..." />
+    </div>
+    <div class="forum-form-group">
+        <label asp-for="Input.Password" class="forum-form-label">Password</label>
+        <input asp-for="Input.Password" class="forum-form-control" type="password" name="password" placeholder="Password..." />
+    </div>
+    <div class="forum-form-group">
+        <label asp-for="Input.ConfirmPassword" class="forum-form-label">Confirm Password</label>
+        <input asp-for="Input.ConfirmPassword" class="forum-form-control" type="password" name="confirmPassword" placeholder="Confirm Password..." />
+    </div>
+    <hr class="forum-login-divider" />
+    <div class="forum-form-buttons">
+        <button class="forum-form-button">Register</button>
+        <a asp-area="Identity" asp-page="/Account/Login" class="forum-form-button">Login</a>
+    </div>
+</form>
