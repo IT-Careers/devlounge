@@ -28,7 +28,11 @@ namespace DevLounge.Data.Repositories
 
         public IQueryable<TEntity> RetrieveAll()
         {
-            return this.devLoungeDbContext.Set<TEntity>().AsNoTracking();
+            return this.devLoungeDbContext.Set<TEntity>()
+                .Include(section => section.CreatedBy)
+                .Include(section => section.ModifiedBy)
+                .Include(section => section.DeletedBy)
+                .AsNoTracking();
         }
 
         public async Task<TEntity> EditAsync(TEntity entity)

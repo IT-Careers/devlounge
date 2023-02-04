@@ -1,5 +1,5 @@
-﻿using DevLounge.Data;
-using DevLounge.Data.Models;
+﻿using DevLounge.Data.Models;
+using DevLounge.Data.Repositories;
 using DevLounge.Service.Mapping.ForumCategories;
 using DevLounge.Service.Models.ForumCategories;
 using Microsoft.EntityFrameworkCore;
@@ -8,27 +8,25 @@ namespace DevLounge.Service.ForumCategories
 {
     public class ForumCategoryService : IForumCategoryService
     {
-        private readonly DevLoungeDbContext devLoungeDbContext;
+        private readonly ForumSectionRepository forumSectionRepository;
 
-        public ForumCategoryService(DevLoungeDbContext devLoungeDbContext)
+        private readonly ForumCategoryRepository forumCategoryRepository;
+
+        public ForumCategoryService(
+            ForumCategoryRepository forumCategoryRepository, 
+            ForumSectionRepository forumSectionRepository)
         {
-            this.devLoungeDbContext = devLoungeDbContext;
+            this.forumCategoryRepository = forumCategoryRepository;
+            this.forumSectionRepository = forumSectionRepository;
         }
 
         public async Task<ForumCategoryDto> CreateForumCategory(ForumCategoryDto forumCategoryDto)
         {
             ForumCategory forumCategory = forumCategoryDto.ToEntity();
-            var userCreator = await this.devLoungeDbContext.Users.SingleOrDefaultAsync(user => user.Id == forumCategoryDto.CreatedBy.Id);
 
-            if(userCreator == null)
-            {
-                throw new ArgumentException("The user that created this forum category is invalid.");
-            }
-
-            forumCategory.CreatedBy = userCreator;
-            forumCategory.CreatedOn = DateTime.Now;
-
-            var categorySection = await this.devLoungeDbContext.Sections.SingleOrDefaultAsync(section => section.Id == forumCategoryDto.Section.Id);
+            var categorySection = await this.forumSectionRepository
+                .RetrieveAll()
+                .SingleOrDefaultAsync(section => section.Id == forumCategoryDto.Section.Id);
 
             if(categorySection == null)
             {
@@ -37,15 +35,14 @@ namespace DevLounge.Service.ForumCategories
 
             forumCategory.Section = categorySection;
 
-            await this.devLoungeDbContext.AddAsync(forumCategory);
-            await this.devLoungeDbContext.SaveChangesAsync();
+            await forumCategoryRepository.AddAsync(forumCategory);
 
             return forumCategory.ToDto();
         }
 
         public async Task<ForumCategoryDto> DeleteForumCategory(long id)
         {
-            ForumCategory forumCategory = await this.devLoungeDbContext.Categories
+            ForumCategory forumCategory = await this.forumCategoryRepository.RetrieveAll()
                 .SingleOrDefaultAsync(category => category.Id == id);
 
             if(forumCategory == null)
@@ -55,36 +52,28 @@ namespace DevLounge.Service.ForumCategories
 
             ForumCategoryDto forumCategoryDto = forumCategory.ToDto();
 
-            this.devLoungeDbContext.Remove(forumCategory);
-            await this.devLoungeDbContext.SaveChangesAsync();
+            await this.forumCategoryRepository.RemoveAsync(forumCategory);
 
             return forumCategoryDto;
         }
 
-        public IQueryable<ForumCategoryDto> GetAllForumCategories(bool isExtended = false)
+        public IQueryable<ForumCategoryDto> GetAllForumCategories()
         {
-            IQueryable<ForumCategory> forumCategories = this.devLoungeDbContext.Categories;
+            IQueryable<ForumCategory> forumCategories = this.forumCategoryRepository.RetrieveAll()
+                .Include(category => category.Section);
 
-            if(isExtended)
-            {
-                forumCategories = forumCategories
-                    .Include(category => category.CreatedBy)
-                    .Include(category => category.Section);
-            }
-
-            return forumCategories.Select(category => category.ToDto(isExtended));
+            return forumCategories.Select(category => category.ToDto(true, true));
         }
 
         public async Task<ForumCategoryDto> GetForumCategoryById(long id)
         {
-            ForumCategory forumCategory = await this.devLoungeDbContext.Categories
-                .Include(category => category.CreatedBy)
+            ForumCategory forumCategory = await this.forumCategoryRepository.RetrieveAll()
                 .Include(category => category.Section)
                 .SingleOrDefaultAsync(category => category.Id == id);
 
             if (forumCategory == null)
             {
-                throw new ArgumentException("The category you are trying to delete does not exist.");
+                throw new ArgumentException("The category you are trying to retrieve does not exist.");
             }
 
             return forumCategory.ToDto();
@@ -92,18 +81,18 @@ namespace DevLounge.Service.ForumCategories
 
         public async Task<ForumCategoryDto> UpdateForumCategory(long id, ForumCategoryDto forumCategoryDto)
         {
-            ForumCategory forumCategory = await this.devLoungeDbContext.Categories.SingleOrDefaultAsync(category => category.Id == id);
+            ForumCategory forumCategory = await this.forumCategoryRepository.RetrieveAll()
+                .SingleOrDefaultAsync(category => category.Id == id);
 
             if (forumCategory == null)
             {
-                throw new ArgumentException("The category you are trying to delete does not exist.");
+                throw new ArgumentException("The category you are trying to modify does not exist.");
             }
 
             forumCategory.Name = forumCategoryDto.Name;
             forumCategory.Description = forumCategoryDto.Description;
             forumCategory.ThumbnailImageUrl = forumCategoryDto.ThumbnailImageUrl;
             forumCategory.CoverImageUrl = forumCategoryDto.CoverImageUrl;
-            // TODO: Categories set;
 
             return forumCategory.ToDto();
         }

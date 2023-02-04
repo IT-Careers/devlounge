@@ -1,6 +1,6 @@
 ﻿namespace DevLounge.Data.Models
 {
-    public class Attachment : BaseEntity
+    public class ForumAttachment : BaseEntity
     {
         public string FileUrl { get; set; }
 

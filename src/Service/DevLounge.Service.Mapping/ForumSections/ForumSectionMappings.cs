@@ -19,7 +19,7 @@ namespace DevLounge.Service.Mapping.ForumSections
             };
         }
 
-        public static ForumSectionDto ToDto(this ForumSection forumSection, bool isExtended = false)
+        public static ForumSectionDto ToDto(this ForumSection forumSection, bool fetchCategories = true)
         {
             return new ForumSectionDto
             {
@@ -32,7 +32,7 @@ namespace DevLounge.Service.Mapping.ForumSections
                 ModifiedBy = forumSection.ModifiedBy?.ToDto(),
                 DeletedOn = forumSection.DeletedOn,
                 DeletedBy = forumSection.DeletedBy?.ToDto(),
-                Categories = isExtended ? forumSection.Categories?.Select(category => category.ToDto()).ToList() : null
+                Categories = forumSection.Categories?.Select(category => category.ToDto(fetchSection: false)).ToList()
             };
         }
     }

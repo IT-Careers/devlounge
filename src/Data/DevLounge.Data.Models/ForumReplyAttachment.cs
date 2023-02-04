@@ -8,6 +8,6 @@
 
         public long AttachmentId { get; set; }
 
-        public Attachment Attachment { get; set; }
+        public ForumAttachment Attachment { get; set; }
     }
 }

@@ -1,5 +1,4 @@
-﻿using DevLounge.Data;
-using DevLounge.Data.Models;
+﻿using DevLounge.Data.Models;
 using DevLounge.Data.Repositories;
 using DevLounge.Service.Mapping.ForumCategories;
 using DevLounge.Service.Mapping.ForumSections;
@@ -13,11 +12,8 @@ namespace DevLounge.Service.ForumSections
     {
         private readonly ForumSectionRepository forumSectionRepository;
 
-        private readonly DevLoungeDbContext devLoungeDbContext;
-
-        public ForumSectionService(DevLoungeDbContext devLoungeDbContext, ForumSectionRepository forumSectionRepository)
+        public ForumSectionService(ForumSectionRepository forumSectionRepository)
         {
-            this.devLoungeDbContext = devLoungeDbContext;
             this.forumSectionRepository = forumSectionRepository;
         }
 
@@ -46,12 +42,10 @@ namespace DevLounge.Service.ForumSections
             return forumSection.ToDto();
         }
 
-        public IQueryable<ForumSectionDto> GetAllForumSections(bool isExtended = false, bool fetchDeleted = false)
+        public IQueryable<ForumSectionDto> GetAllForumSections(bool fetchDeleted = false)
         {
             IQueryable<ForumSection> forumSections = this.forumSectionRepository.RetrieveAll()
-                    .Include(section => section.CreatedBy)
-                    .Include(section => section.ModifiedBy)
-                    .Include(section => section.DeletedBy);
+                .Include(section => section.Categories);
 
             if (!fetchDeleted)
             {
@@ -59,21 +53,12 @@ namespace DevLounge.Service.ForumSections
                     .Where(section => section.DeletedBy == null);
             }
 
-            if (isExtended)
-            {
-                forumSections = forumSections
-                    .Include(section => section.Categories);
-            }
-
-            return forumSections.Select(section => section.ToDto(isExtended));
+            return forumSections.Select(section => section.ToDto(true));
         }
 
         public async Task<ForumSectionDto> GetForumSectionById(long id)
         {
             ForumSection forumSection = await this.forumSectionRepository.RetrieveAll()
-                .Include(section => section.CreatedBy)
-                .Include(section => section.ModifiedBy)
-                .Include(section => section.DeletedBy)
                 .Include(section => section.Categories)
                 .ThenInclude(category => category.CreatedBy)
                 .SingleOrDefaultAsync(section => section.Id == id);
@@ -84,10 +69,7 @@ namespace DevLounge.Service.ForumSections
             }
 
             ForumSectionDto forumSectionDto = forumSection.ToDto();
-            forumSectionDto.CreatedBy = forumSection.CreatedBy.ToDto();
-            forumSectionDto.ModifiedBy = forumSection.ModifiedBy?.ToDto();
-            forumSectionDto.DeletedBy = forumSection.DeletedBy?.ToDto();
-            forumSectionDto.Categories = forumSection.Categories.Select(category => category.ToDto(true)).ToList();
+            forumSectionDto.Categories = forumSection.Categories.Select(category => category.ToDto()).ToList();
 
             return forumSectionDto;
         }

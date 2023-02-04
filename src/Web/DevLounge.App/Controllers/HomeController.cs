@@ -19,7 +19,7 @@ namespace DevLounge.Web.Controllers
         {
             return View(new HomeViewModel
             {
-                Sections = this.forumSectionService.GetAllForumSections(isExtended: true).ToList()
+                Sections = this.forumSectionService.GetAllForumSections().ToList()
             });
         }
     }

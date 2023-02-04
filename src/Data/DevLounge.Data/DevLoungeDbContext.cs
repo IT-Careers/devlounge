@@ -15,7 +15,7 @@ namespace DevLounge.Data
 
         public DbSet<ForumReply> Replies { get; set; }
 
-        public DbSet<Attachment> Attachments { get; set; }
+        public DbSet<ForumAttachment> Attachments { get; set; }
 
         public DevLoungeDbContext(DbContextOptions<DevLoungeDbContext> options) : base(options)
         {

@@ -20,7 +20,10 @@ namespace DevLounge.Service.Mapping.ForumCategories
             };  
         }
 
-        public static ForumCategoryDto ToDto(this ForumCategory forumCategory, bool isExtended = false)
+        public static ForumCategoryDto ToDto(
+            this ForumCategory forumCategory, 
+            bool fetchSection = true, 
+            bool fetchUser = true)
         {
             return new ForumCategoryDto
             {
@@ -29,9 +32,13 @@ namespace DevLounge.Service.Mapping.ForumCategories
                 Description = forumCategory.Description,
                 ThumbnailImageUrl = forumCategory.ThumbnailImageUrl,
                 CoverImageUrl = forumCategory.CoverImageUrl,
-                Section = isExtended ? forumCategory.Section?.ToDto() : null,
+                Section = fetchSection ? forumCategory.Section?.ToDto(fetchCategories: false) : null,
                 CreatedOn = forumCategory.CreatedOn,
-                CreatedBy = isExtended ? forumCategory.CreatedBy?.ToDto() : null,
+                CreatedBy = fetchUser ? forumCategory.CreatedBy?.ToDto() : null,
+                ModifiedOn = forumCategory.ModifiedOn,
+                ModifiedBy = fetchUser ? forumCategory.ModifiedBy?.ToDto() : null,
+                DeletedOn = forumCategory.DeletedOn,
+                DeletedBy = fetchUser ? forumCategory.DeletedBy?.ToDto() : null,
             };
         }
     }

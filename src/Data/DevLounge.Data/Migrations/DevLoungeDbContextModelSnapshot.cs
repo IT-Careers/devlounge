@@ -66,7 +66,7 @@ namespace DevLounge.Data.Migrations
 
                     b.HasIndex("ModifiedById");
 
-                    b.ToTable("Attachments");
+                    b.ToTable("Attachments", (string)null);
                 });
 
             modelBuilder.Entity("DevLounge.Data.Models.DevLoungeUser", b =>
@@ -189,7 +189,7 @@ namespace DevLounge.Data.Migrations
 
                     b.HasIndex("SectionId");
 
-                    b.ToTable("Categories");
+                    b.ToTable("Categories", (string)null);
                 });
 
             modelBuilder.Entity("DevLounge.Data.Models.ForumReply", b =>
@@ -235,7 +235,7 @@ namespace DevLounge.Data.Migrations
 
                     b.HasIndex("ThreadId");
 
-                    b.ToTable("Replies");
+                    b.ToTable("Replies", (string)null);
                 });
 
             modelBuilder.Entity("DevLounge.Data.Models.ForumReplyAttachment", b =>
@@ -250,7 +250,7 @@ namespace DevLounge.Data.Migrations
 
                     b.HasIndex("AttachmentId");
 
-                    b.ToTable("ForumReplyAttachment");
+                    b.ToTable("ForumReplyAttachment", (string)null);
                 });
 
             modelBuilder.Entity("DevLounge.Data.Models.ForumSection", b =>
@@ -295,7 +295,7 @@ namespace DevLounge.Data.Migrations
 
                     b.HasIndex("ModifiedById");
 
-                    b.ToTable("Sections");
+                    b.ToTable("Sections", (string)null);
                 });
 
             modelBuilder.Entity("DevLounge.Data.Models.ForumThread", b =>
@@ -341,7 +341,7 @@ namespace DevLounge.Data.Migrations
 
                     b.HasIndex("ModifiedById");
 
-                    b.ToTable("Threads");
+                    b.ToTable("Threads", (string)null);
                 });
 
             modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityRole", b =>

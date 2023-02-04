@@ -22,7 +22,7 @@ namespace DevLounge.Web.Areas.Administration.Controllers
         {
             return View(new AdministrationPanelModel 
             {
-                Sections = this.forumSectionService.GetAllForumSections(false, true).ToList(),
+                Sections = this.forumSectionService.GetAllForumSections(true).ToList(),
                 Categories = this.forumCategoryService.GetAllForumCategories().ToList()
             });
         }

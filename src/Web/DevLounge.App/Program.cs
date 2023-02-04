@@ -19,7 +19,11 @@ namespace DevLounge.Web
             builder.Services.AddDbContext<DevLoungeDbContext>(options =>
                 options.UseSqlServer(connectionString));
 
+            // Forum Repositories
             builder.Services.AddTransient<ForumSectionRepository, ForumSectionRepository>();
+            builder.Services.AddTransient<ForumCategoryRepository, ForumCategoryRepository>();
+
+            // Forum Services
             builder.Services.AddTransient<IForumSectionService, ForumSectionService>();
             builder.Services.AddTransient<IForumCategoryService, ForumCategoryService>();
 
