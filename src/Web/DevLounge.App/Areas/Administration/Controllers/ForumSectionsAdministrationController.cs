@@ -8,11 +8,11 @@ using System.Security.Claims;
 namespace DevLounge.Web.Areas.Administration.Controllers
 {
     [Route("/Administration/Sections")]
-    public class ForumSectionAdministrationController : BaseAdministrationController
+    public class ForumSectionsAdministrationController : BaseAdministrationController
     {
         private readonly IForumSectionService forumSectionService;
 
-        public ForumSectionAdministrationController(IForumSectionService forumSectionService)
+        public ForumSectionsAdministrationController(IForumSectionService forumSectionService)
         {
             this.forumSectionService = forumSectionService;
         }
@@ -49,7 +49,7 @@ namespace DevLounge.Web.Areas.Administration.Controllers
         }
 
         [HttpPost("Edit/{id}")]
-        public async Task<IActionResult> EditConfirm(long id, ForumSectionDto forumSectionDto)
+        public async Task<IActionResult> Edit(long id, ForumSectionDto forumSectionDto)
         {
             await this.forumSectionService.UpdateForumSection(id, forumSectionDto);
 
@@ -57,7 +57,7 @@ namespace DevLounge.Web.Areas.Administration.Controllers
         }
 
         [HttpPost("Delete/{id}")]
-        public async Task<IActionResult> DeleteConfirm(long id)
+        public async Task<IActionResult> Delete(long id)
         {
             await this.forumSectionService.DeleteForumSection(id);
 

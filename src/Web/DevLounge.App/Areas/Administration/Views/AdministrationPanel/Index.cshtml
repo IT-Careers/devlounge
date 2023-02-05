@@ -23,15 +23,15 @@
             </div>
         </footer>
     </div>
-    <div class="forum-admin-panel-column">
+    <div class="forum-admin-panel-column forum-admin-panel-categories">
         <header class="forum-admin-panel-column-header">Categories</header>
         <main class="forum-admin-panel-column-content">
             @foreach (var forumCategory in Model.Categories)
             {
                 <div class="forum-admin-panel-column-element">
-                    <div class="forum-admin-panel-column-element-label">@forumCategory.Name</div>
+                    <div class="forum-admin-panel-column-element-label">@(forumCategory.DeletedBy != null ? "[Deleted] " + forumCategory.Name : forumCategory.Name)</div>
                     <div class="forum-admin-panel-column-element-actions">
-                        <img src="~/images/icons/kebab-menu.svg" />
+                        <img src="~/images/icons/kebab-menu.svg" id="@forumCategory.Id" data-name="@forumCategory.Name" />
                     </div>
                 </div>
             }
@@ -79,5 +79,17 @@
     </div>
 </main>
 
+@{
+    var forumSectionsContextMenuConfiguration = new AdministrationPanelContextMenuConfiguration { 
+        ContextMenuId = "forum-sections-context-menu",
+        ScriptUrl = "/js/adminPanelForumSectionsContextMenu.js" 
+    };
+    var forumCategoriesContextMenuConfiguration = new AdministrationPanelContextMenuConfiguration { 
+        ContextMenuId = "forum-categories-context-menu",
+        ScriptUrl = "/js/adminPanelForumCategoriesContextMenu.js" 
+    };
+}
+
 <partial name="_AdminPanelDeleteModalPartial" />
-<partial name="_AdminPanelContextMenuPartial" />
+<partial name="_AdminPanelContextMenuPartial" model="forumSectionsContextMenuConfiguration" />
+<partial name="_AdminPanelContextMenuPartial" model="forumCategoriesContextMenuConfiguration" />

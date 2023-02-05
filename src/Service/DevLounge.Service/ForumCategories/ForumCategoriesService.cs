@@ -42,7 +42,7 @@ namespace DevLounge.Service.ForumCategories
 
         public async Task<ForumCategoryDto> DeleteForumCategory(long id)
         {
-            ForumCategory forumCategory = await this.forumCategoryRepository.RetrieveAll()
+            ForumCategory forumCategory = await this.forumCategoryRepository.RetrieveAllTracked()
                 .SingleOrDefaultAsync(category => category.Id == id);
 
             if(forumCategory == null)
@@ -81,7 +81,8 @@ namespace DevLounge.Service.ForumCategories
 
         public async Task<ForumCategoryDto> UpdateForumCategory(long id, ForumCategoryDto forumCategoryDto)
         {
-            ForumCategory forumCategory = await this.forumCategoryRepository.RetrieveAll()
+            ForumCategory forumCategory = await this.forumCategoryRepository.RetrieveAllTracked()
+                .Include(category => category.Section)
                 .SingleOrDefaultAsync(category => category.Id == id);
 
             if (forumCategory == null)
@@ -93,6 +94,10 @@ namespace DevLounge.Service.ForumCategories
             forumCategory.Description = forumCategoryDto.Description;
             forumCategory.ThumbnailImageUrl = forumCategoryDto.ThumbnailImageUrl;
             forumCategory.CoverImageUrl = forumCategoryDto.CoverImageUrl;
+            forumCategory.Section = (await this.forumSectionRepository.RetrieveAllTracked()
+                .SingleOrDefaultAsync(section => section.Id == forumCategoryDto.Section.Id));
+
+            await this.forumCategoryRepository.EditAsync(forumCategory);
 
             return forumCategory.ToDto();
         }

@@ -1,4 +1,6 @@
-﻿<div class="forum-admin-panel-context-menu">
+﻿@model AdministrationPanelContextMenuConfiguration
+
+<div id="@Model.ContextMenuId" class="forum-admin-panel-context-menu">
     <ul class="forum-admin-panel-menu-items">
         <li class="forum-admin-panel-menu-item">
             <a href="" id="forum-admin-panel-context-menu-details">Details</a>
@@ -11,4 +13,4 @@
         </li>
     </ul>
 </div>
-<script src="~/js/adminPanelForumSectionContextMenu.js"></script>
+<script src="@Model.ScriptUrl"></script>

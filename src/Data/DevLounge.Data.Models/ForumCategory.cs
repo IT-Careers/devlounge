@@ -11,5 +11,7 @@
         public string CoverImageUrl { get; set; }
 
         public ForumSection Section { get; set; }
+
+        public List<ForumThread> Threads { get; set; }
     }
 }

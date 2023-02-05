@@ -8,13 +8,13 @@ using System.Security.Claims;
 namespace DevLounge.Web.Areas.Administration.Controllers
 {
     [Route("/Administration/Categories")]
-    public class ForumCategoryAdministrationController : BaseAdministrationController
+    public class ForumCategoriesAdministrationController : BaseAdministrationController
     {
         private readonly IForumSectionService forumSectionService;
 
         private readonly IForumCategoryService forumCategoryService;
 
-        public ForumCategoryAdministrationController(
+        public ForumCategoriesAdministrationController(
             IForumCategoryService forumCategoryService, 
             IForumSectionService forumSectionService)
         {
@@ -25,7 +25,6 @@ namespace DevLounge.Web.Areas.Administration.Controllers
         [HttpGet("Create")]
         public IActionResult Create()
         {
-            // TODO: Includes categories in service... Probably a bad idea
             this.ViewData["Sections"] = this.forumSectionService.GetAllForumSections().ToList(); 
 
             return View();
@@ -44,10 +43,28 @@ namespace DevLounge.Web.Areas.Administration.Controllers
             return Redirect("/Administration/Home");
         }
 
-        [HttpGet("{id}")]
-        public async Task<IActionResult> GetById(long id)
+        [HttpGet("Edit/{id}")]
+        public async Task<IActionResult> Edit(long id)
         {
-            return Ok(await this.forumCategoryService.GetForumCategoryById(id));
+            this.ViewData["Sections"] = this.forumSectionService.GetAllForumSections().ToList();
+
+            return View(await this.forumCategoryService.GetForumCategoryById(id));
+        }
+
+        [HttpPost("Edit/{id}")]
+        public async Task<IActionResult> Edit(long id, ForumCategoryDto forumCategoryDto)
+        {
+            await this.forumCategoryService.UpdateForumCategory(id, forumCategoryDto);
+
+            return Redirect("/Administration/Home");
+        }
+
+        [HttpPost("Delete/{id}")]
+        public async Task<IActionResult> Delete(long id)
+        {
+            await this.forumCategoryService.DeleteForumCategory(id);
+
+            return Redirect("/Administration/Home");
         }
     }
 }
