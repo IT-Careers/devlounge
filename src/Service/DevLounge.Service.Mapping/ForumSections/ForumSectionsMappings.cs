@@ -6,7 +6,7 @@ using DevLounge.Service.Models.ForumSections;
 
 namespace DevLounge.Service.Mapping.ForumSections
 {
-    public static class ForumSectionMappings
+    public static class ForumSectionsMappings
     {
         public static ForumSection ToEntity(this ForumSectionDto forumSectionDto)
         {

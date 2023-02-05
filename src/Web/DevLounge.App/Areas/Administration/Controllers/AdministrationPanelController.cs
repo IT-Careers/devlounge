@@ -8,11 +8,11 @@ namespace DevLounge.Web.Areas.Administration.Controllers
     [Route("/Administration/Home")]
     public class AdministrationPanelController : BaseAdministrationController
     {
-        private readonly IForumSectionService forumSectionService;
+        private readonly IForumSectionsService forumSectionService;
 
-        private readonly IForumCategoryService forumCategoryService;
+        private readonly IForumCategoriesService forumCategoryService;
 
-        public AdministrationPanelController(IForumSectionService forumSectionService, IForumCategoryService forumCategoryService)
+        public AdministrationPanelController(IForumSectionsService forumSectionService, IForumCategoriesService forumCategoryService)
         {
             this.forumSectionService = forumSectionService;
             this.forumCategoryService = forumCategoryService;

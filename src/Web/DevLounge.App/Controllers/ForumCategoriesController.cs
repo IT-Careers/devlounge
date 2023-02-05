@@ -6,9 +6,9 @@ namespace DevLounge.Web.Controllers
     [Route("/Categories")]
     public class ForumCategoriesController : Controller
     {
-        private readonly IForumCategoryService forumCategoryService;
+        private readonly IForumCategoriesService forumCategoryService;
 
-        public ForumCategoriesController(IForumCategoryService forumCategoryService)
+        public ForumCategoriesController(IForumCategoriesService forumCategoryService)
         {
             this.forumCategoryService = forumCategoryService;
         }

@@ -5,7 +5,7 @@ using DevLounge.Service.Models.ForumCategories;
 
 namespace DevLounge.Service.Mapping.ForumCategories
 {
-    public static class ForumCategoryMappings
+    public static class ForumCategoriesMappings
     {
         public static ForumCategory ToEntity(this ForumCategoryDto forumCategoryDto)
         {

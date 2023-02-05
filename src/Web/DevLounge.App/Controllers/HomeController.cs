@@ -8,9 +8,9 @@ namespace DevLounge.Web.Controllers
 {
     public class HomeController : Controller
     {
-        private readonly IForumSectionService forumSectionService;
+        private readonly IForumSectionsService forumSectionService;
 
-        public HomeController(IForumSectionService forumSectionService)
+        public HomeController(IForumSectionsService forumSectionService)
         {
             this.forumSectionService = forumSectionService;
         }

@@ -2,7 +2,7 @@
 
 namespace DevLounge.Service.ForumCategories
 {
-    public interface IForumCategoryService
+    public interface IForumCategoriesService
     {
         Task<ForumCategoryDto> CreateForumCategory(ForumCategoryDto forumCategoryDto);
 

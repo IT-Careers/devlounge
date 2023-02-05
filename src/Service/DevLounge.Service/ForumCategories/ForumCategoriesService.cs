@@ -6,13 +6,13 @@ using Microsoft.EntityFrameworkCore;
 
 namespace DevLounge.Service.ForumCategories
 {
-    public class ForumCategoryService : IForumCategoryService
+    public class ForumCategoriesService : IForumCategoriesService
     {
         private readonly ForumSectionRepository forumSectionRepository;
 
         private readonly ForumCategoryRepository forumCategoryRepository;
 
-        public ForumCategoryService(
+        public ForumCategoriesService(
             ForumCategoryRepository forumCategoryRepository, 
             ForumSectionRepository forumSectionRepository)
         {

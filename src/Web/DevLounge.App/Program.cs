@@ -24,8 +24,8 @@ namespace DevLounge.Web
             builder.Services.AddTransient<ForumCategoryRepository, ForumCategoryRepository>();
 
             // Forum Services
-            builder.Services.AddTransient<IForumSectionService, ForumSectionService>();
-            builder.Services.AddTransient<IForumCategoryService, ForumCategoryService>();
+            builder.Services.AddTransient<IForumSectionsService, ForumSectionsService>();
+            builder.Services.AddTransient<IForumCategoriesService, ForumCategoriesService>();
 
             builder.Services.AddDatabaseDeveloperPageExceptionFilter();
 

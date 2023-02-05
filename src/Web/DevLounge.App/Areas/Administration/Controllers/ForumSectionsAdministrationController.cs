@@ -10,9 +10,9 @@ namespace DevLounge.Web.Areas.Administration.Controllers
     [Route("/Administration/Sections")]
     public class ForumSectionsAdministrationController : BaseAdministrationController
     {
-        private readonly IForumSectionService forumSectionService;
+        private readonly IForumSectionsService forumSectionService;
 
-        public ForumSectionsAdministrationController(IForumSectionService forumSectionService)
+        public ForumSectionsAdministrationController(IForumSectionsService forumSectionService)
         {
             this.forumSectionService = forumSectionService;
         }

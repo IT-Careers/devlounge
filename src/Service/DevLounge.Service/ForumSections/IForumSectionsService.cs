@@ -2,7 +2,7 @@
 
 namespace DevLounge.Service.ForumSections
 {
-    public interface IForumSectionService
+    public interface IForumSectionsService
     {
         Task<ForumSectionDto> CreateForumSection(ForumSectionDto forumSectionDto);
 

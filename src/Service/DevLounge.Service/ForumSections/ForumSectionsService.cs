@@ -8,11 +8,11 @@ using Microsoft.EntityFrameworkCore;
 
 namespace DevLounge.Service.ForumSections
 {
-    public class ForumSectionService : IForumSectionService
+    public class ForumSectionsService : IForumSectionsService
     {
         private readonly ForumSectionRepository forumSectionRepository;
 
-        public ForumSectionService(ForumSectionRepository forumSectionRepository)
+        public ForumSectionsService(ForumSectionRepository forumSectionRepository)
         {
             this.forumSectionRepository = forumSectionRepository;
         }
