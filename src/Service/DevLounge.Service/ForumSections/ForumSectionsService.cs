@@ -10,9 +10,9 @@ namespace DevLounge.Service.ForumSections
 {
     public class ForumSectionsService : IForumSectionsService
     {
-        private readonly ForumSectionRepository forumSectionRepository;
+        private readonly ForumSectionsRepository forumSectionRepository;
 
-        public ForumSectionsService(ForumSectionRepository forumSectionRepository)
+        public ForumSectionsService(ForumSectionsRepository forumSectionRepository)
         {
             this.forumSectionRepository = forumSectionRepository;
         }
@@ -51,6 +51,7 @@ namespace DevLounge.Service.ForumSections
             {
                 forumSections = forumSections
                     .Where(section => section.DeletedBy == null);
+                //TODO: Filter deleted categories
             }
 
             return forumSections.Select(section => section.ToDto(true));

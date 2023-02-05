@@ -48,6 +48,13 @@ namespace DevLounge.Data.Repositories
             return entity;
         }
 
+        public async Task<TEntity> EditWithoutMetadataAsync(TEntity entity)
+        {
+            this.devLoungeDbContext.Update(entity);
+            await this.devLoungeDbContext.SaveChangesAsync();
+            return entity;
+        }
+
         public async Task<TEntity> RemoveAsync(TEntity entity)
         {
             entity.DeletedOn = DateTime.Now;

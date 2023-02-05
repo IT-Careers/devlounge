@@ -9,14 +9,13 @@
             </p>
         </div>
         <div class="forum-category-actions">
-            <a href="#" class="forum-category-action-button">Post Thread</a>
+            <a href="/Threads/Create?categoryId=@Model.Id" class="forum-category-action-button">Post Thread</a>
         </div>
     </header>
     <hr class="forum-category-content-separator" />
     <main>
         <input id="forum-category-content-threads-search" type="text" placeholder="Search threads..." name="query" />
         <div class="forum-category-content-threads">
-            @foreach(var forumThread in Model.Threads)
             <div class="forum-category-content-thread-row">
                 <img class="forum-category-thread-thumbnail" src="~/images/icons/default-user-thumbnail.png" alt="...">
                 <div class="forum-category-thread-primary-info">

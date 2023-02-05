@@ -19,7 +19,7 @@
         <footer class="forum-admin-panel-column-options">
             <div class="forum-admin-panel-create-button">
                 <span class="forum-admin-panel-create-button-icon">+</span>
-                <a asp-area="Administration" asp-controller="ForumSectionAdministration" asp-action="Create" class="forum-admin-panel-create-button-label">Create Section</a>
+                <a asp-area="Administration" asp-controller="ForumSectionsAdministration" asp-action="Create" class="forum-admin-panel-create-button-label">Create Section</a>
             </div>
         </footer>
     </div>
@@ -39,7 +39,7 @@
         <footer class="forum-admin-panel-column-options">
             <div class="forum-admin-panel-create-button">
                 <span class="forum-admin-panel-create-button-icon">+</span>
-                <a asp-area="Administration" asp-controller="ForumCategoryAdministration" asp-action="Create" class="forum-admin-panel-create-button-label">Create Category</a>
+                <a asp-area="Administration" asp-controller="ForumCategoriesAdministration" asp-action="Create" class="forum-admin-panel-create-button-label">Create Category</a>
             </div>
         </footer>
     </div>
@@ -56,7 +56,7 @@
         <footer class="forum-admin-panel-column-options">
             <div class="forum-admin-panel-create-button">
                 <span class="forum-admin-panel-create-button-icon">+</span>
-                <a href="create-thread.html" class="forum-admin-panel-create-button-label">Create Thread</a>
+                <a asp-controller="ForumThreads" asp-action="Create" class="forum-admin-panel-create-button-label">Create Thread</a>
             </div>
         </footer>
     </div>

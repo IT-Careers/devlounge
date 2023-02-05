@@ -22,7 +22,8 @@ namespace DevLounge.Service.Mapping.ForumCategories
 
         public static ForumCategoryDto ToDto(
             this ForumCategory forumCategory, 
-            bool fetchSection = true, 
+            bool fetchSection = true,
+            bool fetchThreads = true,
             bool fetchUser = true)
         {
             return new ForumCategoryDto

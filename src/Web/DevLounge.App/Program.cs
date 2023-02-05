@@ -3,8 +3,10 @@ using DevLounge.Data.Models;
 using DevLounge.Data.Repositories;
 using DevLounge.Service.ForumCategories;
 using DevLounge.Service.ForumSections;
+using DevLounge.Service.ForumThreads;
 using DevLounge.Web.Seed;
 using Microsoft.AspNetCore.Identity;
+using Microsoft.AspNetCore.Identity.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore;
 
 namespace DevLounge.Web
@@ -20,12 +22,14 @@ namespace DevLounge.Web
                 options.UseSqlServer(connectionString));
 
             // Forum Repositories
-            builder.Services.AddTransient<ForumSectionRepository, ForumSectionRepository>();
-            builder.Services.AddTransient<ForumCategoryRepository, ForumCategoryRepository>();
+            builder.Services.AddTransient<ForumSectionsRepository, ForumSectionsRepository>();
+            builder.Services.AddTransient<ForumCategoriesRepository, ForumCategoriesRepository>();
+            builder.Services.AddTransient<ForumThreadsRepository, ForumThreadsRepository>();
 
             // Forum Services
             builder.Services.AddTransient<IForumSectionsService, ForumSectionsService>();
             builder.Services.AddTransient<IForumCategoriesService, ForumCategoriesService>();
+            builder.Services.AddTransient<IForumThreadsService, ForumThreadsService>();
 
             builder.Services.AddDatabaseDeveloperPageExceptionFilter();
 

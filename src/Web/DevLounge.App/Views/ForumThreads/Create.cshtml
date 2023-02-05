@@ -1,0 +1,50 @@
+﻿@model CreateForumThreadBindingModel
+
+@{
+    var selectedCategory = (int)ViewData["SelectedCategory"];
+    var forumCategories = (List<ForumCategoryDto>)ViewData["Categories"];
+}
+
+<div class="forum-create-thread">
+    <header>
+        <h1 class="forum-create-thread-heading">Post Thread</h1>
+    </header>
+    <hr class="forum-create-thread-divider" />
+    <main>
+        <form class="forum-form forum-create-thread-form" 
+        asp-controller="ForumThreads"
+        asp-action="Create"
+        method="post">
+            <div class="forum-form-group">
+                <label asp-for="Title" class="forum-form-label">Title</label>
+                <input asp-for="Title" class="forum-form-control" type="text" name="title" placeholder="Title..." />
+            </div>
+            <div class="forum-form-group">
+                <label asp-for="Discussion" class="forum-form-label">Discussion</label>
+                <textarea asp-for="Discussion" rows="20" class="forum-form-control" type="text" name="discussion" placeholder="Discussion..."></textarea>
+            </div>
+            <div class="forum-form-group">
+                <label class="forum-form-label">Category</label>
+                <select asp-for="Category.Id" class="forum-form-control">
+                    <option value="0" disabled selected>--- Select Category ---</option>
+                    @foreach(var forumCategory in forumCategories) 
+                    {
+                        @if(forumCategory.Id == selectedCategory) 
+                        {
+                            <option value="@forumCategory.Id" selected>@forumCategory.Name</option>
+                        }
+                        else 
+                        {
+                            <option value="@forumCategory.Id">@forumCategory.Name</option>
+                        }
+                    }
+                </select>
+            </div>
+            <hr class="forum-create-thread-divider" />
+            <div class="forum-form-buttons">
+                <button class="forum-form-button">Post</button>
+                <a href="#" class="forum-form-button">Back</a>
+            </div>
+        </form>
+    </main>
+</div>

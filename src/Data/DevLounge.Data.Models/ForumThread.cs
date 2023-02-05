@@ -4,6 +4,8 @@
     {
         public string Title { get; set; }
 
+        public int Views { get; set; }
+
         public List<ForumReply> Replies { get; set; }
 
         public ForumCategory Category { get; set; }

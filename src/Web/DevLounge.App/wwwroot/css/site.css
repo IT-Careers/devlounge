@@ -239,6 +239,7 @@ a {
 .forum-form-label {
     font-size: 18px;
     font-weight: bold;
+    color: var(--dark-blue-color);
 }
 
 .forum-form-control {
@@ -876,3 +877,47 @@ a {
     border-radius: 50%;
     margin-left: 20px;
 }
+
+/* Create Forum Thread Page Styling */
+
+.forum-create-thread {
+    width: 97.5%;
+}
+
+    .forum-create-thread header {
+    }
+
+.forum-create-thread-heading {
+    margin-top: 20px;
+    font-size: 24px;
+    font-weight: bold;
+    color: var(--dark-blue-color);
+}
+
+.forum-create-thread-divider {
+    width: 100%;
+    height: 5px;
+    background-color: var(--dark-blue-color);
+    margin-top: 25px;
+}
+
+.forum-create-thread main {
+}
+
+.forum-create-thread-form {
+    width: 100%;
+}
+
+    .forum-create-thread-form textarea {
+        resize: none;
+    }
+
+    .forum-create-thread-form
+    .forum-form-group:first-child {
+        margin-top: 10px;
+    }
+
+    .forum-create-thread-form
+    .forum-form-group:not(:first-child) {
+        margin-top: 15px;
+    }

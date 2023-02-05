@@ -8,13 +8,13 @@ namespace DevLounge.Service.ForumCategories
 {
     public class ForumCategoriesService : IForumCategoriesService
     {
-        private readonly ForumSectionRepository forumSectionRepository;
+        private readonly ForumSectionsRepository forumSectionRepository;
 
-        private readonly ForumCategoryRepository forumCategoryRepository;
+        private readonly ForumCategoriesRepository forumCategoryRepository;
 
         public ForumCategoriesService(
-            ForumCategoryRepository forumCategoryRepository, 
-            ForumSectionRepository forumSectionRepository)
+            ForumCategoriesRepository forumCategoryRepository, 
+            ForumSectionsRepository forumSectionRepository)
         {
             this.forumCategoryRepository = forumCategoryRepository;
             this.forumSectionRepository = forumSectionRepository;
@@ -62,7 +62,7 @@ namespace DevLounge.Service.ForumCategories
             IQueryable<ForumCategory> forumCategories = this.forumCategoryRepository.RetrieveAll()
                 .Include(category => category.Section);
 
-            return forumCategories.Select(category => category.ToDto(true, true));
+            return forumCategories.Select(category => category.ToDto(true, true, true));
         }
 
         public async Task<ForumCategoryDto> GetForumCategoryById(long id)

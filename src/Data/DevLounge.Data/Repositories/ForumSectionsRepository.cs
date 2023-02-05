@@ -3,9 +3,9 @@ using Microsoft.AspNetCore.Http;
 
 namespace DevLounge.Data.Repositories
 {
-    public class ForumSectionRepository : BaseRepository<ForumSection>
+    public class ForumSectionsRepository : BaseRepository<ForumSection>
     {
-        public ForumSectionRepository(DevLoungeDbContext devLoungeDbContext, IHttpContextAccessor httpContextAccessor) 
+        public ForumSectionsRepository(DevLoungeDbContext devLoungeDbContext, IHttpContextAccessor httpContextAccessor) 
             : base(devLoungeDbContext, httpContextAccessor)
         {
         }
