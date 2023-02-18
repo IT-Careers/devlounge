@@ -24,6 +24,7 @@
     <ProjectReference Include="..\..\Data\DevLounge.Data\DevLounge.Data.csproj" />
     <ProjectReference Include="..\..\Service\DevLounge.Service.Models\DevLounge.Service.Models.csproj" />
     <ProjectReference Include="..\..\Service\DevLounge.Service\DevLounge.Service.csproj" />
+    <ProjectReference Include="..\DevLounge.Web.Mapping\DevLounge.Web.Mapping.csproj" />
     <ProjectReference Include="..\DevLounge.Web.Models\DevLounge.Web.Models.csproj" />
   </ItemGroup>
 

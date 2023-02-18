@@ -1,6 +1,7 @@
 ﻿using DevLounge.Service.ForumCategories;
 using DevLounge.Service.ForumThreads;
 using DevLounge.Service.Models.ForumThreads;
+using DevLounge.Web.Mapping.ForumThreads;
 using DevLounge.Web.Models.ForumThreads;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
@@ -40,7 +41,7 @@ namespace DevLounge.Web.Controllers
         [HttpPost("Create")]
         public async Task<IActionResult> Create(CreateForumThreadBindingModel createForumThreadBindingModel)
         {
-            await this.forumThreadsService.CreateForumThread(null);
+            await this.forumThreadsService.CreateForumThread(createForumThreadBindingModel.ToDto());
 
             return this.Redirect("/Threads");
         }

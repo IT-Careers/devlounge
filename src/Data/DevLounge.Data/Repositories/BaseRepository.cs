@@ -26,6 +26,19 @@ namespace DevLounge.Data.Repositories
             return entity;
         }
 
+        public async Task<IEnumerable<TEntity>> AddManyAsync(IEnumerable<TEntity> entities)
+        {
+            foreach (var entity in entities)
+            {
+                entity.CreatedOn = DateTime.Now;
+                entity.CreatedBy = await this.GetCurrentUserAsync();
+            }
+
+            await this.devLoungeDbContext.AddRangeAsync(entities);
+            await this.devLoungeDbContext.SaveChangesAsync();
+            return entities;
+        }
+
         public IQueryable<TEntity> RetrieveAll()
         {
             return this.RetrieveAllTracked().AsNoTracking();

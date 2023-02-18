@@ -1,6 +1,7 @@
 ﻿using DevLounge.Data.Models;
 using DevLounge.Data.Repositories;
 using DevLounge.Service.Mapping.ForumCategories;
+using DevLounge.Service.Mapping.ForumReplies;
 using DevLounge.Service.Mapping.ForumThreads;
 using DevLounge.Service.Models.ForumThreads;
 using Microsoft.AspNetCore.Identity;
@@ -10,16 +11,20 @@ namespace DevLounge.Service.ForumThreads
 {
     public class ForumThreadsService : IForumThreadsService
     {
+        private readonly ForumRepliesRepository forumRepliesRepository;
+
         private readonly ForumCategoriesRepository forumCategoriesRepository;
 
         private readonly ForumThreadsRepository forumThreadsRepository;
 
         public ForumThreadsService(
             ForumThreadsRepository forumThreadsRepository,
-            ForumCategoriesRepository forumCategoriesRepository)
+            ForumCategoriesRepository forumCategoriesRepository,
+            ForumRepliesRepository forumRepliesRepository)
         {
             this.forumThreadsRepository = forumThreadsRepository;
             this.forumCategoriesRepository = forumCategoriesRepository;
+            this.forumRepliesRepository = forumRepliesRepository;
         }
 
         public async Task<ForumThreadDto> CreateForumThread(ForumThreadDto forumThreadDto)
@@ -27,7 +32,7 @@ namespace DevLounge.Service.ForumThreads
             ForumThread forumThread = forumThreadDto.ToEntity();
 
             var threadCategory = await this.forumCategoriesRepository
-                .RetrieveAll()
+                .RetrieveAllTracked()
                 .SingleOrDefaultAsync(category => category.Id == forumThreadDto.Category.Id);
 
             if (threadCategory == null)
@@ -38,6 +43,16 @@ namespace DevLounge.Service.ForumThreads
             forumThread.Category = threadCategory;
 
             await this.forumThreadsRepository.AddAsync(forumThread);
+
+            var threadReplies = forumThreadDto.Replies?
+                .Select(reply => reply.ToEntity())
+                .Select(reply =>
+                {
+                    reply.Thread = forumThread;
+                    return reply;
+                });
+
+            await this.forumRepliesRepository.AddManyAsync(threadReplies);
 
             return forumThread.ToDto();
         }

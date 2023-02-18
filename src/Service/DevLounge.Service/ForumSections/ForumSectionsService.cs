@@ -29,7 +29,7 @@ namespace DevLounge.Service.ForumSections
         public async Task<ForumSectionDto> DeleteForumSection(long id)
         {
             ForumSection forumSection = await this.forumSectionRepository
-                .RetrieveAll()
+                .RetrieveAllTracked()
                 .SingleOrDefaultAsync(section => section.Id == id);
 
             if(forumSection == null)
@@ -38,7 +38,7 @@ namespace DevLounge.Service.ForumSections
             }
 
             await this.forumSectionRepository.RemoveAsync(forumSection);
-            
+
             return forumSection.ToDto();
         }
 
