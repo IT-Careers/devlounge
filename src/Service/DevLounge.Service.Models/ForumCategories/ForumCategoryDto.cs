@@ -1,4 +1,5 @@
 ﻿using DevLounge.Service.Models.ForumSections;
+using DevLounge.Service.Models.ForumThreads;
 
 namespace DevLounge.Service.Models.ForumCategories
 {
@@ -13,5 +14,7 @@ namespace DevLounge.Service.Models.ForumCategories
         public string CoverImageUrl { get; set; }
 
         public ForumSectionDto Section { get; set; }
+
+        public List<ForumThreadDto> Threads { get; set; }
     }
 }

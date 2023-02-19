@@ -16,30 +16,33 @@
     <main>
         <input id="forum-category-content-threads-search" type="text" placeholder="Search threads..." name="query" />
         <div class="forum-category-content-threads">
-            <div class="forum-category-content-thread-row">
-                <img class="forum-category-thread-thumbnail" src="~/images/icons/default-user-thumbnail.png" alt="...">
-                <div class="forum-category-thread-primary-info">
-                    <h1 class="forum-category-thread-title">Hello there!</h1>
-                    <p class="forum-category-thread-timestamp">Posted by Tronald, 3 days ago.</p>
-                </div>
-                <div class="forum-category-thread-secondary-info">
-                    <div class="forum-category-thread-replies">
-                        <div><span class="forum-category-thread-replies-label">Replies</span>:</div>
-                        <span class="forum-category-thread-replies-value">55</span>
+            @foreach(var thread in Model.Threads) 
+            {
+                <div class="forum-category-content-thread-row">
+                    <img class="forum-category-thread-thumbnail" src="~/images/icons/default-user-thumbnail.png" alt="...">
+                    <div class="forum-category-thread-primary-info">
+                        <h1 class="forum-category-thread-title"><a href="/Threads/@thread.Id">@thread.Title</a></h1>
+                        <p class="forum-category-thread-timestamp">Posted by @thread.CreatedBy?.UserName, @thread.CreatedOn.ToString("dd/MM/yyyy").</p>
                     </div>
-                    <div class="forum-category-thread-views">
-                        <span class="forum-category-thread-views-label">Views:</span>
-                        <span class="forum-category-thread-views-value">1356</span>
+                    <div class="forum-category-thread-secondary-info">
+                        <div class="forum-category-thread-replies">
+                            <div><span class="forum-category-thread-replies-label">Replies</span>:</div>
+                            <span class="forum-category-thread-replies-value">@thread.Replies.Count</span>
+                        </div>
+                        <div class="forum-category-thread-views">
+                            <span class="forum-category-thread-views-label">Views:</span>
+                            <span class="forum-category-thread-views-value">@thread.Views</span>
+                        </div>
+                    </div>
+                    <div class="forum-category-thread-activity-info">
+                        <div class="forum-category-thread-activity-timestamp">
+                            <span class="forum-category-thread-activity-timestamp-value">(test) 10 minutes ago</span>
+                            <span class="forum-category-thread-activity-tomestamp-user">(test) Prakash</span>
+                        </div>
+                        <img class="forum-category-activity-thumbnail" src="~/images/icons/default-user-thumbnail.png" alt="...">
                     </div>
                 </div>
-                <div class="forum-category-thread-activity-info">
-                    <div class="forum-category-thread-activity-timestamp">
-                        <span class="forum-category-thread-activity-timestamp-value">10 minutes ago</span>
-                        <span class="forum-category-thread-activity-tomestamp-user">Prakash</span>
-                    </div>
-                    <img class="forum-category-activity-thumbnail" src="~/images/icons/default-user-thumbnail.png" alt="...">
-                </div>
-            </div>
+            }
         </div>
     </main>
 </main>

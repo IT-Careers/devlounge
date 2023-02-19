@@ -4,7 +4,6 @@ using DevLounge.Service.Mapping.ForumCategories;
 using DevLounge.Service.Mapping.ForumReplies;
 using DevLounge.Service.Mapping.ForumThreads;
 using DevLounge.Service.Models.ForumThreads;
-using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;
 
 namespace DevLounge.Service.ForumThreads
@@ -72,9 +71,9 @@ namespace DevLounge.Service.ForumThreads
                 throw new ArgumentException("Insufficient permissions to delete this thread.");
             }
 
-            ForumThreadDto forumThreadDto = forumThread.ToDto();
-
             await this.forumThreadsRepository.RemoveAsync(forumThread);
+
+            ForumThreadDto forumThreadDto = forumThread.ToDto();
 
             return forumThreadDto;
         }
@@ -90,9 +89,12 @@ namespace DevLounge.Service.ForumThreads
 
         public async Task<ForumThreadDto> GetForumThreadById(long id)
         {
-            ForumThread forumThread = await this.forumThreadsRepository.RetrieveAll()
+            ForumThread forumThread = await this.forumThreadsRepository.RetrieveAllTracked()
                 .Include(thread => thread.Category)
-                .Include(thread => thread.Replies)
+                .Include(thread => thread.Replies).ThenInclude(reply => reply.CreatedBy).ThenInclude(user => user.ThreadsCreated)
+                .Include(thread => thread.Replies).ThenInclude(reply => reply.CreatedBy).ThenInclude(user => user.RepliesCreated)
+                .Include(thread => thread.Replies).ThenInclude(reply => reply.ModifiedBy)
+                .Include(thread => thread.Replies).ThenInclude(reply => reply.DeletedBy)
                 .SingleOrDefaultAsync(thread => thread.Id == id);
 
             if (forumThread == null)
@@ -103,7 +105,7 @@ namespace DevLounge.Service.ForumThreads
             forumThread.Views = forumThread.Views + 1;
             await this.forumThreadsRepository.EditWithoutMetadataAsync(forumThread);
 
-            return forumThread.ToDto();
+            return forumThread.ToDto(true, true, true);
         }
 
         public async Task<ForumThreadDto> UpdateForumThread(long id, ForumThreadDto forumThreadDto, string userId, string userRole)
@@ -123,7 +125,7 @@ namespace DevLounge.Service.ForumThreads
                 throw new ArgumentException("Insufficient permissions to modify this thread.");
             } 
 
-            forumThread.Title = forumThread.Title;
+            forumThread.Title = forumThreadDto.Title;
             forumThread.Views = forumThread.Views;
             forumThread.Category = (await this.forumCategoriesRepository.RetrieveAllTracked()
                 .SingleOrDefaultAsync(category => category.Id == forumThreadDto.Category.Id));

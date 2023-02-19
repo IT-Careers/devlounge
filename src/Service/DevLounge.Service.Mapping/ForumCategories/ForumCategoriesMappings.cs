@@ -1,5 +1,6 @@
 ﻿using DevLounge.Data.Models;
 using DevLounge.Service.Mapping.ForumSections;
+using DevLounge.Service.Mapping.ForumThreads;
 using DevLounge.Service.Mapping.ForumUsers;
 using DevLounge.Service.Models.ForumCategories;
 
@@ -34,6 +35,7 @@ namespace DevLounge.Service.Mapping.ForumCategories
                 ThumbnailImageUrl = forumCategory.ThumbnailImageUrl,
                 CoverImageUrl = forumCategory.CoverImageUrl,
                 Section = fetchSection ? forumCategory.Section?.ToDto(fetchCategories: false) : null,
+                Threads = fetchThreads ? forumCategory.Threads?.Select(thread => thread.ToDto(fetchCategory: false)).ToList() : null,
                 CreatedOn = forumCategory.CreatedOn,
                 CreatedBy = fetchUser ? forumCategory.CreatedBy?.ToDto() : null,
                 ModifiedOn = forumCategory.ModifiedOn,

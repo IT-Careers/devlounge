@@ -10,10 +10,10 @@
 
         public DateTime ModifiedOn { get; set; }
 
-        public DevLoungeUser ModifiedBy { get; set; }
+        public DevLoungeUser? ModifiedBy { get; set; }
 
         public DateTime DeletedOn { get; set; }
 
-        public DevLoungeUser DeletedBy { get; set; }
+        public DevLoungeUser? DeletedBy { get; set; }
     }
 }

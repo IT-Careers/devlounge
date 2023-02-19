@@ -2,6 +2,7 @@ using DevLounge.Data;
 using DevLounge.Data.Models;
 using DevLounge.Data.Repositories;
 using DevLounge.Service.ForumCategories;
+using DevLounge.Service.ForumReplies;
 using DevLounge.Service.ForumSections;
 using DevLounge.Service.ForumThreads;
 using DevLounge.Web.Seed;
@@ -31,6 +32,7 @@ namespace DevLounge.Web
             builder.Services.AddTransient<IForumSectionsService, ForumSectionsService>();
             builder.Services.AddTransient<IForumCategoriesService, ForumCategoriesService>();
             builder.Services.AddTransient<IForumThreadsService, ForumThreadsService>();
+            builder.Services.AddTransient<IForumRepliesService, ForumRepliesService>();
 
             builder.Services.AddDatabaseDeveloperPageExceptionFilter();
 

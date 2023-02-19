@@ -25,7 +25,7 @@ namespace DevLounge.Service.ForumCategories
             ForumCategory forumCategory = forumCategoryDto.ToEntity();
 
             var categorySection = await this.forumSectionRepository
-                .RetrieveAll()
+                .RetrieveAllTracked()
                 .SingleOrDefaultAsync(section => section.Id == forumCategoryDto.Section.Id);
 
             if(categorySection == null)
@@ -69,6 +69,10 @@ namespace DevLounge.Service.ForumCategories
         {
             ForumCategory forumCategory = await this.forumCategoryRepository.RetrieveAll()
                 .Include(category => category.Section)
+                .Include(category => category.Threads).ThenInclude(thread => thread.CreatedBy)
+                .Include(category => category.Threads).ThenInclude(thread => thread.ModifiedBy)
+                .Include(category => category.Threads).ThenInclude(thread => thread.DeletedBy)
+                .Include(category => category.Threads).ThenInclude(thread => thread.Replies)
                 .SingleOrDefaultAsync(category => category.Id == id);
 
             if (forumCategory == null)

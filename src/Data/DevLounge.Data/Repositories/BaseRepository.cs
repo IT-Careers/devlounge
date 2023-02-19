@@ -11,6 +11,8 @@ namespace DevLounge.Data.Repositories
 
         private readonly IHttpContextAccessor _httpContextAccessor;
 
+        private DevLoungeUser cachedUser;
+
         public BaseRepository(DevLoungeDbContext devLoungeDbContext, IHttpContextAccessor httpContextAccessor)
         {
             this.devLoungeDbContext = devLoungeDbContext;
@@ -28,13 +30,16 @@ namespace DevLounge.Data.Repositories
 
         public async Task<IEnumerable<TEntity>> AddManyAsync(IEnumerable<TEntity> entities)
         {
-            foreach (var entity in entities)
+            var currentUser = await this.GetCurrentUserAsync();
+
+            await this.devLoungeDbContext.AddRangeAsync(entities.Select(entity =>
             {
                 entity.CreatedOn = DateTime.Now;
-                entity.CreatedBy = await this.GetCurrentUserAsync();
-            }
+                entity.CreatedBy = currentUser;
 
-            await this.devLoungeDbContext.AddRangeAsync(entities);
+                return entity;
+            }).ToList());
+
             await this.devLoungeDbContext.SaveChangesAsync();
             return entities;
         }
@@ -79,10 +84,21 @@ namespace DevLounge.Data.Repositories
 
         protected async Task<DevLoungeUser> GetCurrentUserAsync()
         {
-            string userId = this._httpContextAccessor.HttpContext.User.FindFirst(ClaimTypes.NameIdentifier).Value;
+            if(this.cachedUser == null)
+            {
+                string userId = this._httpContextAccessor.HttpContext.User.FindFirst(ClaimTypes.NameIdentifier).Value;
 
-            return await this.devLoungeDbContext.Users
-                .SingleOrDefaultAsync(user => user.Id == userId);
+                this.cachedUser = await this.devLoungeDbContext.Users
+                    .Include(user => user.RepliesCreated)
+                    .Include(user => user.RepliesModified)
+                    .Include(user => user.RepliesDeleted)
+                    .Include(user => user.ThreadsCreated)
+                    .Include(user => user.ThreadsModified)
+                    .Include(user => user.ThreadsDeleted)
+                    .SingleOrDefaultAsync(user => user.Id == userId);
+            }
+
+            return this.cachedUser;
         }
     }
 }

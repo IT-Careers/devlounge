@@ -32,7 +32,7 @@ namespace DevLounge.Service.Mapping.ForumSections
                 ModifiedBy = forumSection.ModifiedBy?.ToDto(),
                 DeletedOn = forumSection.DeletedOn,
                 DeletedBy = forumSection.DeletedBy?.ToDto(),
-                Categories = forumSection.Categories?.Select(category => category.ToDto(fetchSection: false)).ToList()
+                Categories = fetchCategories ? forumSection.Categories?.Select(category => category.ToDto(fetchSection: false)).ToList() : null
             };
         }
     }

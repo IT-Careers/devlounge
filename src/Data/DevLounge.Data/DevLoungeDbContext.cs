@@ -34,6 +34,78 @@ namespace DevLounge.Data
                 .Entity<ForumReplyAttachment>()
                 .HasKey(fra => new { fra.ReplyId, fra.AttachmentId });
 
+            builder
+                .Entity<DevLoungeUser>()
+                .HasMany(u => u.RepliesCreated)
+                .WithOne(r => r.CreatedBy)
+                .OnDelete(DeleteBehavior.Restrict);
+
+            builder
+                .Entity<DevLoungeUser>()
+                .HasMany(u => u.RepliesModified)
+                .WithOne(r => r.ModifiedBy)
+                .OnDelete(DeleteBehavior.Restrict);
+
+            builder
+                .Entity<DevLoungeUser>()
+                .HasMany(u => u.RepliesDeleted)
+                .WithOne(r => r.DeletedBy)
+                .OnDelete(DeleteBehavior.Restrict);
+
+            builder
+                .Entity<DevLoungeUser>()
+                .HasMany(u => u.ThreadsCreated)
+                .WithOne(t => t.CreatedBy)
+                .OnDelete(DeleteBehavior.Restrict);
+
+            builder
+                .Entity<DevLoungeUser>()
+                .HasMany(u => u.ThreadsModified)
+                .WithOne(t => t.ModifiedBy)
+                .OnDelete(DeleteBehavior.Restrict);
+
+            builder
+                .Entity<DevLoungeUser>()
+                .HasMany(u => u.ThreadsDeleted)
+                .WithOne(t => t.DeletedBy)
+                .OnDelete(DeleteBehavior.Restrict);
+
+            builder
+                .Entity<DevLoungeUser>()
+                .HasMany(u => u.CategoriesCreated)
+                .WithOne(c => c.CreatedBy)
+                .OnDelete(DeleteBehavior.Restrict);
+
+            builder
+                .Entity<DevLoungeUser>()
+                .HasMany(u => u.CategoriesModified)
+                .WithOne(c => c.ModifiedBy)
+                .OnDelete(DeleteBehavior.Restrict);
+
+            builder
+                .Entity<DevLoungeUser>()
+                .HasMany(u => u.CategoriesDeleted)
+                .WithOne(c => c.DeletedBy)
+                .OnDelete(DeleteBehavior.Restrict);
+
+            builder
+                .Entity<DevLoungeUser>()
+                .HasMany(u => u.SectionsCreated)
+                .WithOne(s => s.CreatedBy)
+                .OnDelete(DeleteBehavior.Restrict);
+
+            builder
+                .Entity<DevLoungeUser>()
+                .HasMany(u => u.SectionsModified)
+                .WithOne(s => s.ModifiedBy)
+                .OnDelete(DeleteBehavior.Restrict);
+
+            builder
+                .Entity<DevLoungeUser>()
+                .HasMany(u => u.SectionsDeleted)
+                .WithOne(s => s.DeletedBy)
+                .OnDelete(DeleteBehavior.Restrict);
+
             base.OnModelCreating(builder);
         }
     }

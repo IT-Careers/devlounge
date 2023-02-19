@@ -2,6 +2,7 @@
 using DevLounge.Service.Mapping.ForumUsers;
 using DevLounge.Service.Mapping.ForumCategories;
 using DevLounge.Service.Models.ForumThreads;
+using DevLounge.Service.Mapping.ForumReplies;
 
 namespace DevLounge.Service.Mapping.ForumThreads
 {
@@ -27,7 +28,7 @@ namespace DevLounge.Service.Mapping.ForumThreads
                 Id = forumThread.Id,
                 Title = forumThread.Title,
                 Views = forumThread.Views,
-                //Replies = forumThread.Replies?.Select(reply => reply.ToDto(fetchThread: false)).ToList(),
+                Replies = fetchReplies ? forumThread.Replies?.Select(reply => reply.ToDto(fetchThread: false)).ToList() : null,
                 Category = fetchCategory ? forumThread.Category?.ToDto(fetchThreads: false) : null,
                 CreatedOn = forumThread.CreatedOn,
                 CreatedBy = fetchUser ? forumThread.CreatedBy?.ToDto() : null,

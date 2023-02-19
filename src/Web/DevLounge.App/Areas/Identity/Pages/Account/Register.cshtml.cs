@@ -65,6 +65,7 @@ namespace DevLounge.Web.Areas.Identity.Pages.Account
 
                 // Custom properties
                 user.Email = Input.Email;
+                user.RegisteredOn = DateTime.Now;
                 
                 await _userStore.SetUserNameAsync(user, Input.Username, CancellationToken.None);
                 var result = await _userManager.CreateAsync(user, Input.Password);
@@ -76,6 +77,10 @@ namespace DevLounge.Web.Areas.Identity.Pages.Account
                     if(await _userManager.Users.CountAsync() == 1)
                     {
                         await _userManager.AddToRoleAsync(user, "Admin");
+                    } 
+                    else
+                    {
+                        await _userManager.AddToRoleAsync(user, "User");
                     }
                     
                     await _signInManager.SignInAsync(user, isPersistent: false);

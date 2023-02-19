@@ -1,0 +1,100 @@
+﻿@model ForumThreadDto
+
+@{
+    DevLoungeUserDto currentUser = (DevLoungeUserDto) this.ViewData["CurrentUser"];
+    currentUser.RepliesCreated = currentUser.RepliesCreated ?? new List<ForumReplyDto>();
+    currentUser.ThreadsCreated = currentUser.ThreadsCreated ?? new List<ForumThreadDto>();
+}
+
+<div class="forum-thread-details-container">
+    <header>
+        <h1>@Model.Title</h1>
+        <div>
+            <span>Posted by @Model.CreatedBy.UserName</span>
+            <span>@Model.CreatedOn.ToString("dd/MM/yyyy")</span>
+        </div>
+    </header>
+    <hr class="forum-thread-details-divider" />
+    <main>
+        <div id="forum-thread-replies" class="forum-thread-replies">
+            @foreach (var reply in Model.Replies) 
+            {
+                <div class="forum-thread-reply">
+                    <header>
+                        <img class="forum-thread-reply-user-thumbnail" src="~/images/icons/default-user-thumbnail.png" alt="" />
+                        <h1 class="forum-thread-reply-user-name">@reply.CreatedBy.UserName</h1>
+                        <div class="forum-thread-reply-user-info">
+                            <div>
+                                <span>Joined:</span>
+                                <span>@reply.CreatedBy.RegisteredOn.ToString("dd/MM/yyyy")</span>
+                            </div>
+                            <div>
+                                <span>Threads:</span>
+                                <span>@reply.CreatedBy.ThreadsCreated.Count</span>
+                            </div>
+                            <div>
+                                <span>Replies:</span>
+                                <span>@reply.CreatedBy.RepliesCreated.Count</span>
+                            </div>
+                            <div>
+                                <span>Score:</span>
+                                <span>0</span>
+                            </div>
+                        </div>
+                    </header>
+                    <main>
+                        <header>
+                            <span class="forum-reply-timestamp">@reply.CreatedOn.ToString("dd/MM/yyyy")</span>
+                            <div class="forum-reply-index-actions">
+                                <div><img class="forum-reply-index-actions-share" src="~/images/icons/share.svg" alt="..." /></div>
+                                <div><a class="forum-reply-index-actions-hyperlink" href="#">#1</a></div>
+                            </div>
+                        </header>
+                        <main>
+                            @reply.Content
+                        </main>
+                        <footer>
+                            <button class="forum-thread-details-button">Reply</button>
+                        </footer>
+                    </main>
+                </div>
+            }
+        </div>
+        <div class="forum-thread-post-reply">
+            <div class="forum-thread-reply">
+                <header>
+                    <img class="forum-thread-reply-user-thumbnail" src="~/images/icons/default-user-thumbnail.png" alt="..." />
+                    <h1 class="forum-thread-reply-user-name">@currentUser.UserName</h1>
+                    <div class="forum-thread-reply-user-info">
+                        <div>
+                            <span>Joined:</span>
+                            <span>@currentUser.RegisteredOn.ToString("dd/MM/yyyy")</span>
+                        </div>
+                        <div>
+                            <span>Threads:</span>
+                            <span>@currentUser.ThreadsCreated.Count</span>
+                        </div>
+                        <div>
+                            <span>Replies:</span>
+                            <span>@currentUser.RepliesCreated.Count</span>
+                        </div>
+                        <div>
+                            <span>Score:</span>
+                            <span>0</span>
+                        </div>
+                    </div>
+                </header>
+                <main>
+                    <main>
+                        <textarea id="forum-post-reply-content" class="forum-thread-post-reply-discussion" placeholder="Write your reply..." name="discussion"></textarea>
+                    </main>
+                    <footer>
+                        <button id="forum-post-reply-post-button" class="forum-thread-details-button">Post Reply</button>
+                    </footer>
+                </main>
+            </div>
+        </div>
+    </main>
+</div>
+
+<script src="~/js/createForumReply.js"></script>
