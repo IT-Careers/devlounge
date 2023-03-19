@@ -6,6 +6,7 @@ using DevLounge.Service.ForumReplies;
 using DevLounge.Service.ForumSections;
 using DevLounge.Service.ForumThreads;
 using DevLounge.Web.Seed;
+using DevLounge.Web.Utilities;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Identity.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore;
@@ -33,6 +34,9 @@ namespace DevLounge.Web
             builder.Services.AddTransient<IForumCategoriesService, ForumCategoriesService>();
             builder.Services.AddTransient<IForumThreadsService, ForumThreadsService>();
             builder.Services.AddTransient<IForumRepliesService, ForumRepliesService>();
+
+            // Forum Utilities
+            builder.Services.AddSingleton<IForumInternalRoutingUtility, ForumInternalRoutingUtility>();
 
             builder.Services.AddDatabaseDeveloperPageExceptionFilter();
 
@@ -103,9 +107,3 @@ namespace DevLounge.Web
         }
     }
 }
-
-
-
-
-
-

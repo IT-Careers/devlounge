@@ -1,8 +1,5 @@
 ﻿@model AdministrationPanelModel
 
-@{
-}
-
 <main class="forum-admin-panel">
     <div class="forum-admin-panel-column forum-admin-panel-sections">
         <header class="forum-admin-panel-column-header">Sections</header>
@@ -46,12 +43,15 @@
     <div class="forum-admin-panel-column">
         <header class="forum-admin-panel-column-header">Threads</header>
         <main class="forum-admin-panel-column-content">
-            <div class="forum-admin-panel-column-element">
-                <div class="forum-admin-panel-column-element-label">Hello there! I'm Prakash!</div>
-                <div class="forum-admin-panel-column-element-actions">
-                    <img src="~/images/icons/kebab-menu.svg" />
+            @foreach (var forumThread in Model.Threads)
+            {
+                <div class="forum-admin-panel-column-element">
+                    <div class="forum-admin-panel-column-element-label">@forumThread.Title</div>
+                    <div class="forum-admin-panel-column-element-actions">
+                        <img src="~/images/icons/kebab-menu.svg" />
+                    </div>
                 </div>
-            </div>
+            }
         </main>
         <footer class="forum-admin-panel-column-options">
             <div class="forum-admin-panel-create-button">
@@ -63,12 +63,15 @@
     <div class="forum-admin-panel-column">
         <header class="forum-admin-panel-column-header">Users</header>
         <main class="forum-admin-panel-column-content">
-            <div class="forum-admin-panel-column-element">
-                <div class="forum-admin-panel-column-element-label">GodGamer</div>
-                <div class="forum-admin-panel-column-element-actions">
-                    <img src="~/images/icons/kebab-menu.svg" />
+            @foreach (var forumUser in Model.Users)
+            {
+                <div class="forum-admin-panel-column-element">
+                    <div class="forum-admin-panel-column-element-label">@forumUser.UserName</div>
+                    <div class="forum-admin-panel-column-element-actions">
+                        <img src="~/images/icons/kebab-menu.svg" />
+                    </div>
                 </div>
-            </div>
+            }
         </main>
         <footer class="forum-admin-panel-column-options">
             <div class="forum-admin-panel-create-button">

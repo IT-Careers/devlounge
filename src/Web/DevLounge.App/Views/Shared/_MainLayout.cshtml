@@ -1,4 +1,6 @@
-﻿<!doctype html>
+﻿@inject IForumInternalRoutingUtility forumInternalRoutingUtility
+
+<!doctype html>
 <html lang="en">
 <head>
     <meta charset="UTF-8">
@@ -19,6 +21,15 @@
                 <partial name="_LoginPartial" />
             </nav>
         </header>
+        @if (forumInternalRoutingUtility.InternalRoutingVisibility)
+        {
+            <div class="forum-internal-routing">
+                @foreach(var routingElement in forumInternalRoutingUtility.RoutingElements) 
+                {
+                    <a href="@routingElement.Value">@routingElement.Key</a>
+                }
+            </div>
+        }
         <main class="forum-content">
             <main class="forum-content-main-side">
                 @RenderBody()

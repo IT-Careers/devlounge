@@ -57,10 +57,16 @@ namespace DevLounge.Service.ForumCategories
             return forumCategoryDto;
         }
 
-        public IQueryable<ForumCategoryDto> GetAllForumCategories()
+        public IQueryable<ForumCategoryDto> GetAllForumCategories(bool fetchDeleted = false)
         {
             IQueryable<ForumCategory> forumCategories = this.forumCategoryRepository.RetrieveAll()
                 .Include(category => category.Section);
+
+            if (!fetchDeleted)
+            {
+                forumCategories = forumCategories
+                    .Where(category => category.DeletedBy == null);
+            }
 
             return forumCategories.Select(category => category.ToDto(true, true, true));
         }

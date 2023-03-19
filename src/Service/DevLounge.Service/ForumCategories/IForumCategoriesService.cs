@@ -6,7 +6,7 @@ namespace DevLounge.Service.ForumCategories
     {
         Task<ForumCategoryDto> CreateForumCategory(ForumCategoryDto forumCategoryDto);
 
-        IQueryable<ForumCategoryDto> GetAllForumCategories();
+        IQueryable<ForumCategoryDto> GetAllForumCategories(bool fetchDeleted = false);
 
         Task<ForumCategoryDto> GetForumCategoryById(long id);
 

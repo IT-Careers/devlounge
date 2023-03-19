@@ -51,7 +51,6 @@ namespace DevLounge.Service.ForumSections
             {
                 forumSections = forumSections
                     .Where(section => section.DeletedBy == null);
-                //TODO: Filter deleted categories
             }
 
             return forumSections.Select(section => section.ToDto(true));

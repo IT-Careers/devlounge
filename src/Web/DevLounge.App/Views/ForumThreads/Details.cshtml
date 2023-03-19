@@ -1,9 +1,19 @@
 ﻿@model ForumThreadDto
 
+@inject IForumInternalRoutingUtility forumInternalRoutingUtility
+
 @{
     DevLoungeUserDto currentUser = (DevLoungeUserDto) this.ViewData["CurrentUser"];
     currentUser.RepliesCreated = currentUser.RepliesCreated ?? new List<ForumReplyDto>();
     currentUser.ThreadsCreated = currentUser.ThreadsCreated ?? new List<ForumThreadDto>();
+    
+    forumInternalRoutingUtility.InternalRoutingVisibility = true;
+    forumInternalRoutingUtility.RoutingElements = new Dictionary<string, string>()
+    {
+        [Model.Category.Section.Name] = "/Sections/" + Model.Category.Section.Id,
+        [Model.Category.Name] = "/Categories/" + Model.Category.Id,
+        [Model.Title] = "/Threads/" + Model.Id
+    };
 }
 
 <div class="forum-thread-details-container">

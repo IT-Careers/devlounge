@@ -3,6 +3,7 @@
 :root {
     --red-color: #F08080;
     --dark-blue-color: #00008D;
+    --gray-color: #BDBDBD;
 }
 
 body {
@@ -1101,3 +1102,42 @@ a {
         color: #FFFFFF;
         background-color: var(--dark-blue-color);
     }
+
+/* Forum Internal Routing Styling */
+
+.forum-internal-routing {
+    display: flex;
+    flex-direction: row;
+    font-size: 18px;
+    font-weight: bold;
+    margin: 10px 0;
+}
+
+    .forum-internal-routing a {
+        padding: 10px;
+        color: var(--gray-color);
+    }
+
+        .forum-internal-routing a:not(:last-child)::after {
+            display: flex;
+            position: relative;
+            bottom: 42%;
+            left: 100%;
+            content: '';
+            width: 20px;
+            height: 20px;
+            ;
+            background: url("/images/icons/chevron-right.svg") no-repeat bottom;
+        }
+
+        .forum-internal-routing a:first-child {
+            padding-left: 0;
+        }
+
+        .forum-internal-routing a:hover, .forum-internal-routing a:last-child:hover {
+            color: var(--dark-blue-color);
+        }
+
+        .forum-internal-routing a:last-child {
+            color: #4D4D4D;
+        }

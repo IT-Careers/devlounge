@@ -6,7 +6,7 @@ namespace DevLounge.Service.ForumThreads
     {
         Task<ForumThreadDto> CreateForumThread(ForumThreadDto forumThreadDto);
 
-        IQueryable<ForumThreadDto> GetAllForumThreads();
+        IQueryable<ForumThreadDto> GetAllForumThreads(bool fetchDeleted = false);
 
         Task<ForumThreadDto> GetForumThreadById(long id);
 

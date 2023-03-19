@@ -1,5 +1,15 @@
 ﻿@model ForumCategoryDto
 
+@inject IForumInternalRoutingUtility forumInternalRoutingUtility
+
+@{
+    forumInternalRoutingUtility.InternalRoutingVisibility = true;
+    forumInternalRoutingUtility.RoutingElements = new Dictionary<string, string>() {
+        [Model.Section.Name] = "/Sections/" + Model.Section.Id,
+        [Model.Name] = "/Categories/" + Model.Id
+    };
+}
+
 <main class="forum-category-content">
     <header>
         <div class="forum-category-data">

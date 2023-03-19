@@ -78,11 +78,17 @@ namespace DevLounge.Service.ForumThreads
             return forumThreadDto;
         }
 
-        public IQueryable<ForumThreadDto> GetAllForumThreads()
+        public IQueryable<ForumThreadDto> GetAllForumThreads(bool fetchDeleted = false)
         {
             IQueryable<ForumThread> forumThreads = this.forumThreadsRepository.RetrieveAll()
                 .Include(thread => thread.Category)
                 .Include(thread => thread.Replies);
+
+            if (!fetchDeleted)
+            {
+                forumThreads = forumThreads
+                    .Where(thread => thread.DeletedBy == null);
+            }
 
             return forumThreads.Select(thread => thread.ToDto(true, true, true));
         }
@@ -90,7 +96,7 @@ namespace DevLounge.Service.ForumThreads
         public async Task<ForumThreadDto> GetForumThreadById(long id)
         {
             ForumThread forumThread = await this.forumThreadsRepository.RetrieveAllTracked()
-                .Include(thread => thread.Category)
+                .Include(thread => thread.Category).ThenInclude(category => category.Section)
                 .Include(thread => thread.Replies).ThenInclude(reply => reply.CreatedBy).ThenInclude(user => user.ThreadsCreated)
                 .Include(thread => thread.Replies).ThenInclude(reply => reply.CreatedBy).ThenInclude(user => user.RepliesCreated)
                 .Include(thread => thread.Replies).ThenInclude(reply => reply.ModifiedBy)
