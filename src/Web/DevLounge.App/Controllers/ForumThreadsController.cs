@@ -40,6 +40,7 @@ namespace DevLounge.Web.Controllers
             //       We might need it elsewhere...
             var currentUser = (await this.forumUserManager.GetUserAsync(this.User))
                 .ToDto(fetchCreatedReplies: true, fetchCreatedThreads: true);
+
             this.ViewData["CurrentUser"] = currentUser;
 
             return this.View(forumThread);

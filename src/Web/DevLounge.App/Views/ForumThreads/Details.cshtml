@@ -27,7 +27,7 @@
     <hr class="forum-thread-details-divider" />
     <main>
         <div id="forum-thread-replies" class="forum-thread-replies">
-            @foreach (var reply in Model.Replies) 
+            @foreach (var reply in Model.Replies.OrderBy(reply => reply.CreatedOn)) 
             {
                 <div class="forum-thread-reply">
                     <header>
