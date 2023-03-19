@@ -15,7 +15,7 @@ document.querySelectorAll(".forum-admin-panel-sections .forum-admin-panel-column
 
             // Set Option Endpoints
             forumSectionsContextMenu.querySelector('#forum-admin-panel-context-menu-details').href
-                = '/Administration/Sections/' + optionsButton.id;
+                = '/Sections/' + optionsButton.id;
             forumSectionsContextMenu.querySelector('#forum-admin-panel-context-menu-modify').href
                 = '/Administration/Sections/Edit/' + optionsButton.id;
             forumSectionsContextMenu.querySelector('#forum-admin-panel-context-menu-delete').addEventListener('click', (event) => {

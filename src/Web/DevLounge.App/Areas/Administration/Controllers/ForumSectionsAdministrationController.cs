@@ -36,12 +36,6 @@ namespace DevLounge.Web.Areas.Administration.Controllers
             return Redirect("/Administration/Home");
         }
 
-        [HttpGet("{id}")]
-        public async Task<IActionResult> Details(long id)
-        {
-            return View(await this.forumSectionService.GetForumSectionById(id));
-        }
-
         [HttpGet("Edit/{id}")]
         public async Task<IActionResult> Edit(long id)
         {
