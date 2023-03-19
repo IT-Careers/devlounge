@@ -17,6 +17,14 @@ const createNode = (html) => {
     return node.children[0];
 }
 
+const refreshUserReplies = (userId, actualRepliesCount) => {
+    const userRepliesCountElementClass = 'forum-thread-reply-user-' + userId + '-replies-count';
+
+    [...document.getElementsByClassName(userRepliesCountElementClass)].forEach(repliesCountElement => {
+        repliesCountElement.textContent = actualRepliesCount
+    });
+}
+
 const forumReplyTemplate =
     `<div class="forum-thread-reply">
         <header>
@@ -33,7 +41,7 @@ const forumReplyTemplate =
                 </div>
                 <div>
                     <span>Replies:</span>
-                    <span>$createdByReplies</span>
+                    <span class="forum-thread-reply-user-$createdById-replies-count">$createdByReplies</span>
                 </div>
                 <div>
                     <span>Score:</span>
@@ -78,19 +86,26 @@ forumPostReplyButton.addEventListener('click', () => {
     })
         .then(res => res.json())
         .then(json => {
+            const userId = json.createdBy.id;
+            const userThreadsCount = !!json.createdBy.threadsCreated ? json.createdBy.threadsCreated.length : 0;
+            const userRepliesCount = !!json.createdBy.repliesCreated ? json.createdBy.repliesCreated.length : 0;
+
             const parsedReply = forumReplyTemplate
+                .replace('$createdById', userId)
                 .replace('$createdByUsername', json.createdBy.userName)
                 .replace('$createdByRegisteredOn', formatDate(json.createdBy.registeredOn))
-                .replace('$createdByThreads', !!json.createdBy.threadsCreated ? json.createdBy.threadsCreated.length : 0)
-                .replace('$createdByReplies', !!json.createdBy.repliesCreated ? json.createdBy.repliesCreated.length : 0)
+                .replace('$createdByThreads', userThreadsCount)
+                .replace('$createdByReplies', userRepliesCount)
                 .replace('$createdByScore', 0)
                 .replace('$createdOn', formatDate(json.createdOn))
                 .replace('$id', json.id)
                 .replace('$content', json.content);
 
             const forumThreadRepliesContainer = document.querySelector('#forum-thread-replies');
-
             forumThreadRepliesContainer.append(createNode(parsedReply));
+
+            refreshUserReplies(userId, userRepliesCount);
+
             forumReplyContent.value = '';
         });
 });
