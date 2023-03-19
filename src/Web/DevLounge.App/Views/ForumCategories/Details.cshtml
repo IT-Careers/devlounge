@@ -9,6 +9,46 @@
         [Model.Section.Name] = "/Sections/" + Model.Section.Id,
         [Model.Name] = "/Categories/" + Model.Id
     };
+
+    var threadsLatestReplies = Model.Threads.ToDictionary(thread => thread.Id, thread => {
+        var latestReplyCreated = thread.Replies.OrderByDescending(reply => reply.CreatedOn).FirstOrDefault();
+        var latestReplyUpdated = thread.Replies.OrderByDescending(reply => reply.ModifiedOn).FirstOrDefault();
+
+        var timestamp = "N / A";
+        var username = "N / A";
+        var profilePicture = "/images/icons/default-user-thumbnail.png";
+
+        if(latestReplyCreated == null && latestReplyUpdated != null) 
+        {
+            timestamp = timestampMappingUtility.MapTimestamp(latestReplyUpdated.ModifiedOn);
+            username = latestReplyUpdated.ModifiedBy.UserName;
+            // TODO: Implement me ...  profilePicture = latestReplyUpdated.ModifiedBy.ProfilePicture;
+        }
+        else if (latestReplyCreated != null && latestReplyUpdated == null) 
+        {
+            timestamp = timestampMappingUtility.MapTimestamp(latestReplyCreated.CreatedOn);
+            username = latestReplyCreated.CreatedBy.UserName;
+            // TODO: Implement me ...  profilePicture = latestReplyUpdated.CreatedBy.ProfilePicture;
+        }
+        else if(latestReplyCreated != null && latestReplyUpdated != null)
+        {
+            timestamp = timestampMappingUtility.MapTimestamp(
+                latestReplyCreated.CreatedOn > latestReplyUpdated.ModifiedOn 
+                ? latestReplyCreated.CreatedOn 
+                : latestReplyUpdated.ModifiedOn);
+            username = latestReplyCreated.CreatedOn > latestReplyUpdated.ModifiedOn
+                ? latestReplyCreated.CreatedBy.UserName
+                : latestReplyUpdated.ModifiedBy.UserName;
+            // TODO: Implement me ...  profilePicture = latestReplyUpdated.CreatedBy.ProfilePicture;
+        }
+
+        return new 
+        { 
+            Timestamp = timestamp,
+            Username = username,
+            ProfilePicture = profilePicture
+        };
+    });
 }
 
 <main class="forum-category-content">
@@ -47,10 +87,10 @@
                     </div>
                     <div class="forum-category-thread-activity-info">
                         <div class="forum-category-thread-activity-timestamp">
-                            <span class="forum-category-thread-activity-timestamp-value">(test) 10 minutes ago</span>
-                            <span class="forum-category-thread-activity-tomestamp-user">(test) Prakash</span>
+                            <span class="forum-category-thread-activity-timestamp-value">@threadsLatestReplies[thread.Id].Timestamp</span>
+                            <span class="forum-category-thread-activity-tomestamp-user">@threadsLatestReplies[thread.Id].Username</span>
                         </div>
-                        <img class="forum-category-activity-thumbnail" src="~/images/icons/default-user-thumbnail.png" alt="...">
+                        <img class="forum-category-activity-thumbnail" src="@threadsLatestReplies[thread.Id].ProfilePicture" alt="...">
                     </div>
                 </div>
             }

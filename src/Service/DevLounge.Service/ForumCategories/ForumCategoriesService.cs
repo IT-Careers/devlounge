@@ -78,7 +78,8 @@ namespace DevLounge.Service.ForumCategories
                 .Include(category => category.Threads).ThenInclude(thread => thread.CreatedBy)
                 .Include(category => category.Threads).ThenInclude(thread => thread.ModifiedBy)
                 .Include(category => category.Threads).ThenInclude(thread => thread.DeletedBy)
-                .Include(category => category.Threads).ThenInclude(thread => thread.Replies)
+                .Include(category => category.Threads).ThenInclude(thread => thread.Replies).ThenInclude(reply => reply.CreatedBy)
+                .Include(category => category.Threads).ThenInclude(thread => thread.Replies).ThenInclude(reply => reply.ModifiedBy)
                 .SingleOrDefaultAsync(category => category.Id == id);
 
             if (forumCategory == null)

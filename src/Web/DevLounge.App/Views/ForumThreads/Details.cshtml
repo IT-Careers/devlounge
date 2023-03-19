@@ -30,7 +30,7 @@
         <div id="forum-thread-replies" class="forum-thread-replies">
             @foreach (var reply in Model.Replies.OrderBy(reply => reply.CreatedOn)) 
             {
-                <div class="forum-thread-reply">
+                <div id="forum-thread-reply-@reply.Id" class="forum-thread-reply">
                     <header>
                         <img class="forum-thread-reply-user-thumbnail" src="~/images/icons/default-user-thumbnail.png" alt="" />
                         <h1 class="forum-thread-reply-user-name">@reply.CreatedBy.UserName</h1>
@@ -58,7 +58,7 @@
                             <span class="forum-reply-timestamp">@timestampMappingUtility.MapTimestamp(reply.CreatedOn)</span>
                             <div class="forum-reply-index-actions">
                                 <div><img class="forum-reply-index-actions-share" src="~/images/icons/share.svg" alt="..." /></div>
-                                <div><a class="forum-reply-index-actions-hyperlink" href="#">#1</a></div>
+                                <div><a class="forum-reply-index-actions-hyperlink" href="@(Context.Request.Path.ToString() + "#forum-thread-reply-" + reply.Id)">#@reply.Id</a></div>
                             </div>
                         </header>
                         <main>
