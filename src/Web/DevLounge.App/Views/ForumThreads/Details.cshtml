@@ -1,6 +1,7 @@
 ﻿@model ForumThreadDto
 
 @inject IForumInternalRoutingUtility forumInternalRoutingUtility
+@inject ITimestampMappingUtility timestampMappingUtility
 
 @{
     DevLoungeUserDto currentUser = (DevLoungeUserDto) this.ViewData["CurrentUser"];
@@ -21,7 +22,7 @@
         <h1>@Model.Title</h1>
         <div>
             <span>Posted by @Model.CreatedBy.UserName</span>
-            <span>@Model.CreatedOn.ToString("dd/MM/yyyy")</span>
+            <span>@timestampMappingUtility.MapTimestamp(Model.CreatedOn)</span>
         </div>
     </header>
     <hr class="forum-thread-details-divider" />
@@ -36,7 +37,7 @@
                         <div class="forum-thread-reply-user-info">
                             <div>
                                 <span>Joined:</span>
-                                <span>@reply.CreatedBy.RegisteredOn.ToString("dd/MM/yyyy")</span>
+                                <span>@timestampMappingUtility.MapTimestamp(reply.CreatedBy.RegisteredOn)</span>
                             </div>
                             <div>
                                 <span>Threads:</span>
@@ -54,7 +55,7 @@
                     </header>
                     <main>
                         <header>
-                            <span class="forum-reply-timestamp">@reply.CreatedOn.ToString("dd/MM/yyyy")</span>
+                            <span class="forum-reply-timestamp">@timestampMappingUtility.MapTimestamp(reply.CreatedOn)</span>
                             <div class="forum-reply-index-actions">
                                 <div><img class="forum-reply-index-actions-share" src="~/images/icons/share.svg" alt="..." /></div>
                                 <div><a class="forum-reply-index-actions-hyperlink" href="#">#1</a></div>
@@ -78,7 +79,7 @@
                     <div class="forum-thread-reply-user-info">
                         <div>
                             <span>Joined:</span>
-                            <span>@currentUser.RegisteredOn.ToString("dd/MM/yyyy")</span>
+                            <span>@timestampMappingUtility.MapTimestamp(currentUser.RegisteredOn)</span>
                         </div>
                         <div>
                             <span>Threads:</span>

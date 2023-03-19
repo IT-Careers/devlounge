@@ -1,11 +1,13 @@
 ﻿@model ForumSectionDto
 
+@inject ITimestampMappingUtility timestampMappingUtility
+
 @{
     var modifiedBy = (Model.ModifiedBy != null ? Model.ModifiedBy.UserName : "N / A");
-    var modifiedOn = (Model.ModifiedBy != null ? Model.ModifiedOn.ToString("dd/MM/yyyy") : "N / A");
+    var modifiedOn = (Model.ModifiedBy != null ? timestampMappingUtility.MapTimestamp(Model.ModifiedOn) : "N / A");
 
     var deletedBy = (Model.DeletedBy != null ? Model.DeletedBy.UserName : "N / A");
-    var deletedOn = (Model.DeletedBy != null ? Model.DeletedOn.ToString("dd/MM/yyyy") : "N / A");
+    var deletedOn = (Model.DeletedBy != null ? timestampMappingUtility.MapTimestamp(Model.DeletedOn) : "N / A");
 }
 
 <div class="forum-section-details-wrapper">
@@ -29,7 +31,7 @@
                 </div>
                 <div class="forum-section-details-created-on">
                     <span>Created on</span>
-                    <span>@Model.CreatedOn.ToString("dd/MM/yyyy")</span>
+                    <span>@timestampMappingUtility.MapTimestamp(Model.CreatedOn)</span>
                 </div>
             </div>
             <div class="forum-section-details-secondary-info-row">
@@ -77,7 +79,7 @@
                     <td class="forum-section-details-category-thumbnail"><img src="@category.ThumbnailImageUrl" alt="..."></td>
                     <td class="forum-section-details-category-name">@category.Name</td>
                     <td class="forum-section-details-category-created-by">@category.CreatedBy.UserName</td>
-                    <td class="forum-section-details-category-created-on">@category.CreatedOn.ToString("dd/MM/yyyy")</td>
+                    <td class="forum-section-details-category-created-on">@timestampMappingUtility.MapTimestamp(category.CreatedOn)</td>
                 </tr>
             }
         </tbody>

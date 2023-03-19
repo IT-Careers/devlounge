@@ -1,6 +1,7 @@
 ﻿@model ForumCategoryDto
 
 @inject IForumInternalRoutingUtility forumInternalRoutingUtility
+@inject ITimestampMappingUtility timestampMappingUtility
 
 @{
     forumInternalRoutingUtility.InternalRoutingVisibility = true;
@@ -32,7 +33,7 @@
                     <img class="forum-category-thread-thumbnail" src="~/images/icons/default-user-thumbnail.png" alt="...">
                     <div class="forum-category-thread-primary-info">
                         <h1 class="forum-category-thread-title"><a href="/Threads/@thread.Id">@thread.Title</a></h1>
-                        <p class="forum-category-thread-timestamp">Posted by @thread.CreatedBy?.UserName, @thread.CreatedOn.ToString("dd/MM/yyyy").</p>
+                        <p class="forum-category-thread-timestamp">Posted by @thread.CreatedBy?.UserName, @timestampMappingUtility.MapTimestamp(thread.CreatedOn).</p>
                     </div>
                     <div class="forum-category-thread-secondary-info">
                         <div class="forum-category-thread-replies">

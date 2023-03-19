@@ -37,6 +37,7 @@ namespace DevLounge.Web
 
             // Forum Utilities
             builder.Services.AddSingleton<IForumInternalRoutingUtility, ForumInternalRoutingUtility>();
+            builder.Services.AddSingleton<ITimestampMappingUtility, TimestampMappingUtility>();
 
             builder.Services.AddDatabaseDeveloperPageExceptionFilter();
 
