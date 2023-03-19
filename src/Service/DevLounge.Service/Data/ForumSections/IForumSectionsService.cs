@@ -1,6 +1,6 @@
 ﻿using DevLounge.Service.Models.ForumSections;
 
-namespace DevLounge.Service.ForumSections
+namespace DevLounge.Service.Data.ForumSections
 {
     public interface IForumSectionsService
     {

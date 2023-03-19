@@ -1,6 +1,6 @@
 ﻿using DevLounge.Service.Models.ForumCategories;
 
-namespace DevLounge.Service.ForumCategories
+namespace DevLounge.Service.Data.ForumCategories
 {
     public interface IForumCategoriesService
     {

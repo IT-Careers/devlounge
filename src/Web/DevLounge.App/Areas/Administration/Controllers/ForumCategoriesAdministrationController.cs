@@ -1,5 +1,5 @@
-﻿using DevLounge.Service.ForumCategories;
-using DevLounge.Service.ForumSections;
+﻿using DevLounge.Service.Data.ForumCategories;
+using DevLounge.Service.Data.ForumSections;
 using DevLounge.Service.Models.ForumCategories;
 using DevLounge.Service.Models.ForumUsers;
 using Microsoft.AspNetCore.Mvc;

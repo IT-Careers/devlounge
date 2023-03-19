@@ -4,7 +4,7 @@ using DevLounge.Service.Mapping.ForumCategories;
 using DevLounge.Service.Models.ForumCategories;
 using Microsoft.EntityFrameworkCore;
 
-namespace DevLounge.Service.ForumCategories
+namespace DevLounge.Service.Data.ForumCategories
 {
     public class ForumCategoriesService : IForumCategoriesService
     {

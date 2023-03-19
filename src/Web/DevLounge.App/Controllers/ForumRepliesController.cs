@@ -1,4 +1,4 @@
-﻿using DevLounge.Service.ForumReplies;
+﻿using DevLounge.Service.Data.ForumReplies;
 using DevLounge.Service.Models.ForumReplies;
 using DevLounge.Web.Mapping.ForumReplies;
 using DevLounge.Web.Models.ForumReplies;

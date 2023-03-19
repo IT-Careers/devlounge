@@ -1,4 +1,4 @@
-﻿using DevLounge.Service.ForumCategories;
+﻿using DevLounge.Service.Data.ForumCategories;
 using Microsoft.AspNetCore.Mvc;
 
 namespace DevLounge.Web.Controllers

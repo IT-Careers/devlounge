@@ -1,14 +1,14 @@
 using DevLounge.Data;
 using DevLounge.Data.Models;
 using DevLounge.Data.Repositories;
-using DevLounge.Service.ForumCategories;
-using DevLounge.Service.ForumReplies;
-using DevLounge.Service.ForumSections;
-using DevLounge.Service.ForumThreads;
+using DevLounge.Service.Data.ForumCategories;
+using DevLounge.Service.Data.ForumReplies;
+using DevLounge.Service.Data.ForumSections;
+using DevLounge.Service.Data.ForumThreads;
+using DevLounge.Service.Utility;
 using DevLounge.Web.Seed;
 using DevLounge.Web.Utilities;
 using Microsoft.AspNetCore.Identity;
-using Microsoft.AspNetCore.Identity.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore;
 
 namespace DevLounge.Web
@@ -38,6 +38,10 @@ namespace DevLounge.Web
             // Forum Utilities
             builder.Services.AddSingleton<IForumInternalRoutingUtility, ForumInternalRoutingUtility>();
             builder.Services.AddSingleton<ITimestampMappingUtility, TimestampMappingUtility>();
+            //builder.Services.AddSingleton<ICloudinaryService>(instance => new CloudinaryService(
+            //    builder.Configuration["Cloudinary:CloudName"],
+            //    builder.Configuration["Cloudinary:ApiKey"],
+            //    builder.Configuration["Cloudinary:ApiSecret"]));
 
             builder.Services.AddDatabaseDeveloperPageExceptionFilter();
 

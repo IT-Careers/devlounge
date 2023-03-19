@@ -1,6 +1,6 @@
 ﻿using DevLounge.Service.Models.ForumThreads;
 
-namespace DevLounge.Service.ForumThreads
+namespace DevLounge.Service.Data.ForumThreads
 {
     public interface IForumThreadsService
     {

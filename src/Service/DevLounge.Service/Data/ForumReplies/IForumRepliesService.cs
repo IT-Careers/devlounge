@@ -1,6 +1,6 @@
 ﻿using DevLounge.Service.Models.ForumReplies;
 
-namespace DevLounge.Service.ForumReplies
+namespace DevLounge.Service.Data.ForumReplies
 {
     public interface IForumRepliesService
     {

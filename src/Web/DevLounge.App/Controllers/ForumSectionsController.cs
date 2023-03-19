@@ -1,4 +1,4 @@
-﻿using DevLounge.Service.ForumSections;
+﻿using DevLounge.Service.Data.ForumSections;
 using Microsoft.AspNetCore.Mvc;
 
 namespace DevLounge.Web.Controllers

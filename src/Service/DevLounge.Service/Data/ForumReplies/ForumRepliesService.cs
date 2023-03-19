@@ -5,7 +5,7 @@ using DevLounge.Service.Mapping.ForumThreads;
 using DevLounge.Service.Models.ForumReplies;
 using Microsoft.EntityFrameworkCore;
 
-namespace DevLounge.Service.ForumReplies
+namespace DevLounge.Service.Data.ForumReplies
 {
     public class ForumRepliesService : IForumRepliesService
     {

@@ -1,6 +1,6 @@
 ﻿using DevLounge.Data.Models;
-using DevLounge.Service.ForumReplies;
-using DevLounge.Service.ForumThreads;
+using DevLounge.Service.Data.ForumReplies;
+using DevLounge.Service.Data.ForumThreads;
 using DevLounge.Web.Models.Home;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;

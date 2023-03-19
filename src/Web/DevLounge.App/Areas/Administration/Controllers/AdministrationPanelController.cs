@@ -1,7 +1,7 @@
 ﻿using DevLounge.Data.Models;
-using DevLounge.Service.ForumCategories;
-using DevLounge.Service.ForumSections;
-using DevLounge.Service.ForumThreads;
+using DevLounge.Service.Data.ForumCategories;
+using DevLounge.Service.Data.ForumSections;
+using DevLounge.Service.Data.ForumThreads;
 using DevLounge.Service.Mapping.ForumUsers;
 using DevLounge.Service.Models.ForumUsers;
 using DevLounge.Web.Models.Administration.AdministrationPanel;

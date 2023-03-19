@@ -6,7 +6,7 @@ using DevLounge.Service.Mapping.ForumThreads;
 using DevLounge.Service.Models.ForumThreads;
 using Microsoft.EntityFrameworkCore;
 
-namespace DevLounge.Service.ForumThreads
+namespace DevLounge.Service.Data.ForumThreads
 {
     public class ForumThreadsService : IForumThreadsService
     {

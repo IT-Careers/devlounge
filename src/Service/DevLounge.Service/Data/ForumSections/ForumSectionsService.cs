@@ -6,7 +6,7 @@ using DevLounge.Service.Mapping.ForumUsers;
 using DevLounge.Service.Models.ForumSections;
 using Microsoft.EntityFrameworkCore;
 
-namespace DevLounge.Service.ForumSections
+namespace DevLounge.Service.Data.ForumSections
 {
     public class ForumSectionsService : IForumSectionsService
     {

@@ -1,6 +1,6 @@
 ﻿using DevLounge.Data.Models;
-using DevLounge.Service.ForumCategories;
-using DevLounge.Service.ForumThreads;
+using DevLounge.Service.Data.ForumCategories;
+using DevLounge.Service.Data.ForumThreads;
 using DevLounge.Service.Mapping.ForumUsers;
 using DevLounge.Service.Models.ForumThreads;
 using DevLounge.Web.Mapping.ForumThreads;
