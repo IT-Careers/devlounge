@@ -45,7 +45,7 @@ namespace DevLounge.Service.Data.ForumSections
         public IQueryable<ForumSectionDto> GetAllForumSections(bool fetchDeleted = false)
         {
             IQueryable<ForumSection> forumSections = this.forumSectionRepository.RetrieveAll()
-                .Include(section => section.Categories);
+                .Include(section => section.Categories).ThenInclude(category => category.Threads).ThenInclude(thread => thread.CreatedBy);
 
             if (!fetchDeleted)
             {

@@ -15,9 +15,11 @@ namespace DevLounge.Web.Controllers
 
         public IActionResult Index()
         {
+            var sections = this.forumSectionService.GetAllForumSections().ToList();
+
             return View(new HomeViewModel
             {
-                Sections = this.forumSectionService.GetAllForumSections().ToList()
+                Sections = sections
             });
         }
     }

@@ -1,6 +1,7 @@
 ﻿@model HomeViewModel
 
 @inject IForumInternalRoutingUtility forumInternalRoutingUtility
+@inject ITimestampMappingUtility timestampMappingUtility
 
 @*
     For more information on enabling MVC for empty projects, visit https://go.microsoft.com/fwlink/?LinkID=397860
@@ -18,6 +19,13 @@
         <div class="forum-content-section-categories">
             @foreach(var forumCategory in forumSection.Categories) 
             {
+                var latestThread = forumCategory.Threads.OrderByDescending(thread => thread.CreatedOn).FirstOrDefault();
+                var latestThreadUrl = latestThread != null ? $"/Threads/{latestThread.Id}" : "#";
+                var latestThreadTitle = latestThread != null ? latestThread.Title : "";
+                var latestThreadCreator = latestThread != null ? latestThread.CreatedBy.UserName : null;
+                var latestThreadCreatedOn = latestThread != null ? timestampMappingUtility.MapTimestamp(latestThread.CreatedOn) : null;
+                var latestThreadMetadata = latestThread != null ? $"Posted by {latestThreadCreator} {latestThreadCreatedOn}" : "";
+
                 <div class="forum-content-category">
                     <img class="forum-content-category-icon" src="@forumCategory.ThumbnailImageUrl" alt="..." />
                     <div class="forum-content-category-info">
@@ -26,8 +34,8 @@
                             <span class="forum-content-category-description">@forumCategory.Description</span>
                         </div>
                         <div class="forum-content-category-latest-topic">
-                            <a class="forum-content-category-latest-topic-title" href="#">Greetings!</a>
-                            <span class="forum-content-category-latest-topic-details">Posted by samuel.jackson at 03:34 on 12.12.2022</span>
+                            <a class="forum-content-category-latest-topic-title" href="@latestThreadUrl">@latestThreadTitle</a>
+                            <span class="forum-content-category-latest-topic-details">@latestThreadMetadata</span>
                         </div>
                     </div>
                 </div>
