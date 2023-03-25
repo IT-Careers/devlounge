@@ -1,8 +1,11 @@
 ﻿@model ForumSectionDto
 
+@inject IForumInternalRoutingUtility forumInternalRoutingUtility
 @inject ITimestampMappingUtility timestampMappingUtility
 
 @{
+    forumInternalRoutingUtility.InternalRoutingVisibility = false;
+
     var modifiedBy = (Model.ModifiedBy != null ? Model.ModifiedBy.UserName : "N / A");
     var modifiedOn = (Model.ModifiedBy != null ? timestampMappingUtility.MapTimestamp(Model.ModifiedOn) : "N / A");
 
