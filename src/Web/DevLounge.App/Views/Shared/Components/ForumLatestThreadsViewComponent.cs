@@ -1,5 +1,4 @@
 ﻿using DevLounge.Service.Data.ForumThreads;
-using DevLounge.Web.Models.Home;
 using Microsoft.AspNetCore.Mvc;
 
 namespace DevLounge.Web.Views.Shared.Components
