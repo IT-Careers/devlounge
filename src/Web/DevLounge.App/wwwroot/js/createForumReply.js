@@ -1,14 +1,6 @@
 ﻿// Credit: https://stackoverflow.com/a/12409344
 const formatDate = (dateString) => {
-    const today = new Date(dateString);
-    const yyyy = today.getFullYear();
-    let mm = today.getMonth() + 1;
-    let dd = today.getDate();
-
-    if (dd < 10) dd = '0' + dd;
-    if (mm < 10) mm = '0' + mm;
-
-    return dd + '/' + mm + '/' + yyyy;
+    return timestampFormatUtility.mapTimestamp(new Date(dateString));
 }
 
 const createNode = (html) => {
