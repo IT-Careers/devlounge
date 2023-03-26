@@ -4,6 +4,6 @@ namespace DevLounge.Service.Utility
 {
     public interface ICloudinaryService
     {
-        Task<string> UploadFile(IFormFile formFile);
+        Task<Dictionary<string, object>> UploadFile(IFormFile formFile);
     }
 }
