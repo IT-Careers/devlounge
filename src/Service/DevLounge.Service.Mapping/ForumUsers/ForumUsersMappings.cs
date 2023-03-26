@@ -1,4 +1,5 @@
 ﻿using DevLounge.Data.Models;
+using DevLounge.Service.Mapping.ForumAttachments;
 using DevLounge.Service.Mapping.ForumReplies;
 using DevLounge.Service.Mapping.ForumThreads;
 using DevLounge.Service.Models.ForumUsers;
@@ -32,6 +33,7 @@ namespace DevLounge.Service.Mapping.ForumUsers
                 UserName = devLoungeUser.UserName,
                 Email = devLoungeUser.Email,
                 ThumbnailUrl = devLoungeUser.ThumbnailUrl,
+                //Thumbnail = devLoungeUser.Thumbnail.ToDto(),
                 RegisteredOn = devLoungeUser.RegisteredOn,
                 RepliesCreated = fetchCreatedReplies ? devLoungeUser.RepliesCreated?.Select(reply => reply.ToDto(fetchThread: false, fetchUser: false)).ToList() : null,
                 RepliesModified = fetchModifiedReplies ? devLoungeUser.RepliesModified?.Select(reply => reply.ToDto(fetchThread: false, fetchUser: false)).ToList() : null,
@@ -39,7 +41,6 @@ namespace DevLounge.Service.Mapping.ForumUsers
                 ThreadsCreated = fetchCreatedThreads ? devLoungeUser.ThreadsCreated?.Select(thread => thread.ToDto(fetchCategory: false, fetchReplies: false, fetchUser: false)).ToList() : null,
                 ThreadsModified = fetchModifiedThreads ? devLoungeUser.ThreadsModified?.Select(thread => thread.ToDto(fetchCategory: false, fetchReplies: false, fetchUser: false)).ToList() : null,
                 ThreadsDeleted = fetchDeletedThreads ? devLoungeUser.ThreadsDeleted?.Select(thread => thread.ToDto(fetchCategory: false, fetchReplies: false, fetchUser: false)).ToList() : null,
-
             };
         }
     }

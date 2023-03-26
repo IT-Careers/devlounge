@@ -1,4 +1,6 @@
 ﻿using DevLounge.Service.Data.ForumSections;
+using DevLounge.Service.Utility;
+using DevLounge.Web.Models;
 using DevLounge.Web.Models.Home;
 using Microsoft.AspNetCore.Mvc;
 
@@ -8,7 +10,8 @@ namespace DevLounge.Web.Controllers
     {
         private readonly IForumSectionsService forumSectionService;
 
-        public HomeController(IForumSectionsService forumSectionService)
+        public HomeController(
+            IForumSectionsService forumSectionService)
         {
             this.forumSectionService = forumSectionService;
         }

@@ -38,10 +38,7 @@ namespace DevLounge.Web
             // Forum Utilities
             builder.Services.AddSingleton<IForumInternalRoutingUtility, ForumInternalRoutingUtility>();
             builder.Services.AddSingleton<ITimestampMappingUtility, TimestampMappingUtility>();
-            //builder.Services.AddSingleton<ICloudinaryService>(instance => new CloudinaryService(
-            //    builder.Configuration["Cloudinary:CloudName"],
-            //    builder.Configuration["Cloudinary:ApiKey"],
-            //    builder.Configuration["Cloudinary:ApiSecret"]));
+            builder.Services.AddTransient<ICloudinaryService, CloudinaryService>();
 
             builder.Services.AddDatabaseDeveloperPageExceptionFilter();
 

@@ -1,4 +1,5 @@
-﻿using DevLounge.Service.Models.ForumCategories;
+﻿using DevLounge.Service.Models.ForumAttachments;
+using DevLounge.Service.Models.ForumCategories;
 using DevLounge.Service.Models.ForumReplies;
 using DevLounge.Service.Models.ForumSections;
 using DevLounge.Service.Models.ForumThreads;
@@ -14,6 +15,8 @@ namespace DevLounge.Service.Models.ForumUsers
         public string Email { get; set; }
 
         public string ThumbnailUrl { get; set; }
+
+        //public ForumAttachmentDto Thumbnail { get; set; }
 
         public DateTime RegisteredOn { get; set; }
 
