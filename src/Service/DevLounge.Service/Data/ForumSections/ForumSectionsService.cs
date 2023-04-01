@@ -45,6 +45,8 @@ namespace DevLounge.Service.Data.ForumSections
         public IQueryable<ForumSectionDto> GetAllForumSections(bool fetchDeleted = false)
         {
             IQueryable<ForumSection> forumSections = this.forumSectionRepository.RetrieveAll()
+                .Include(section => section.Categories).ThenInclude(category => category.ThumbnailImage)
+                .Include(section => section.Categories).ThenInclude(category => category.CoverImage)
                 .Include(section => section.Categories).ThenInclude(category => category.Threads).ThenInclude(thread => thread.CreatedBy);
 
             if (!fetchDeleted)
@@ -59,8 +61,9 @@ namespace DevLounge.Service.Data.ForumSections
         public async Task<ForumSectionDto> GetForumSectionById(long id)
         {
             ForumSection forumSection = await this.forumSectionRepository.RetrieveAll()
-                .Include(section => section.Categories)
-                .ThenInclude(category => category.CreatedBy)
+                .Include(section => section.Categories).ThenInclude(category => category.CreatedBy)
+                .Include(section => section.Categories).ThenInclude(category => category.ThumbnailImage)
+                .Include(section => section.Categories).ThenInclude(category => category.CoverImage)
                 .SingleOrDefaultAsync(section => section.Id == id);
 
             if (forumSection == null)

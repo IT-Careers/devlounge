@@ -79,7 +79,7 @@
             {
                 <tr>
                     <td class="forum-section-details-category-id">@category.Id</td>
-                    <td class="forum-section-details-category-thumbnail"><img src="@category.ThumbnailImageUrl" alt="..."></td>
+                    <td class="forum-section-details-category-thumbnail"><img src="@category.ThumbnailImage.FileUrl" alt="..."></td>
                     <td class="forum-section-details-category-name">@category.Name</td>
                     <td class="forum-section-details-category-created-by">@category.CreatedBy.UserName</td>
                     <td class="forum-section-details-category-created-on">@timestampMappingUtility.MapTimestamp(category.CreatedOn)</td>

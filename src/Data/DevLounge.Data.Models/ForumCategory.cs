@@ -6,9 +6,9 @@
 
         public string Description { get; set; }
 
-        public string ThumbnailImageUrl { get; set; }
+        public ForumAttachment ThumbnailImage { get; set; }
 
-        public string CoverImageUrl { get; set; }
+        public ForumAttachment CoverImage { get; set; }
 
         public ForumSection Section { get; set; }
 

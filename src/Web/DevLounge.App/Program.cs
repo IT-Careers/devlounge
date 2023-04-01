@@ -28,6 +28,7 @@ namespace DevLounge.Web
             builder.Services.AddTransient<ForumCategoriesRepository, ForumCategoriesRepository>();
             builder.Services.AddTransient<ForumThreadsRepository, ForumThreadsRepository>();
             builder.Services.AddTransient<ForumRepliesRepository, ForumRepliesRepository>();
+            builder.Services.AddTransient<ForumAttachmentsRepository, ForumAttachmentsRepository>();
 
             // Forum Services
             builder.Services.AddTransient<IForumSectionsService, ForumSectionsService>();
