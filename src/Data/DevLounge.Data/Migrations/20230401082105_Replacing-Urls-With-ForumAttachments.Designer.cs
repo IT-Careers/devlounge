@@ -4,6 +4,7 @@ using DevLounge.Data;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 
 #nullable disable
@@ -11,9 +12,10 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace DevLounge.Data.Migrations
 {
     [DbContext(typeof(DevLoungeDbContext))]
-    partial class DevLoungeDbContextModelSnapshot : ModelSnapshot
+    [Migration("20230401082105_Replacing-Urls-With-ForumAttachments")]
+    partial class ReplacingUrlsWithForumAttachments
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder

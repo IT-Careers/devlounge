@@ -35,6 +35,18 @@ namespace DevLounge.Data
                 .HasKey(fra => new { fra.ReplyId, fra.AttachmentId });
 
             builder
+                .Entity<ForumCategory>()
+                .HasOne(fc => fc.ThumbnailImage)
+                .WithMany()
+                .OnDelete(DeleteBehavior.Restrict);
+
+            builder
+                .Entity<ForumCategory>()
+                .HasOne(fc => fc.CoverImage)
+                .WithMany()
+                .OnDelete(DeleteBehavior.Restrict);
+
+            builder
                 .Entity<DevLoungeUser>()
                 .HasMany(u => u.RepliesCreated)
                 .WithOne(r => r.CreatedBy)

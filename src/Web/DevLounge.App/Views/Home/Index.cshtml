@@ -27,7 +27,7 @@
                 var latestThreadMetadata = latestThread != null ? $"Posted by {latestThreadCreator} {latestThreadCreatedOn}" : "";
 
                 <div class="forum-content-category">
-                    <img class="forum-content-category-icon" src="@forumCategory.ThumbnailImageUrl" alt="..." />
+                    <img class="forum-content-category-icon" src="@forumCategory.ThumbnailImage.FileUrl" alt="..." />
                     <div class="forum-content-category-info">
                         <div class="forum-content-category-details">
                             <a class="forum-content-category-title" href="/Categories/@forumCategory.Id">@forumCategory.Name</a>

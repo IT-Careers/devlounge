@@ -1,4 +1,5 @@
-﻿using DevLounge.Service.Models.ForumSections;
+﻿using DevLounge.Service.Models.ForumAttachments;
+using DevLounge.Service.Models.ForumSections;
 using DevLounge.Service.Models.ForumThreads;
 
 namespace DevLounge.Service.Models.ForumCategories
@@ -9,9 +10,9 @@ namespace DevLounge.Service.Models.ForumCategories
 
         public string Description { get; set; }
 
-        public string ThumbnailImageUrl { get; set; }
+        public ForumAttachmentDto ThumbnailImage { get; set; }
 
-        public string CoverImageUrl { get; set; }
+        public ForumAttachmentDto CoverImage { get; set; }
 
         public ForumSectionDto Section { get; set; }
 

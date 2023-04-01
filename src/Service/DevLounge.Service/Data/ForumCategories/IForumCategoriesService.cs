@@ -1,10 +1,11 @@
 ﻿using DevLounge.Service.Models.ForumCategories;
+using Microsoft.AspNetCore.Http;
 
 namespace DevLounge.Service.Data.ForumCategories
 {
     public interface IForumCategoriesService
     {
-        Task<ForumCategoryDto> CreateForumCategory(ForumCategoryDto forumCategoryDto);
+        Task<ForumCategoryDto> CreateForumCategory(ForumCategoryDto forumCategoryDto, IFormFile thumbnailImage, IFormFile coverImage);
 
         IQueryable<ForumCategoryDto> GetAllForumCategories(bool fetchDeleted = false);
 

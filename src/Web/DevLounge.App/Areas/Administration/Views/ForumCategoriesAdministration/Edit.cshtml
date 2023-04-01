@@ -1,46 +1,139 @@
-﻿@model ForumCategoryDto
+﻿@model CreateForumCategoryBindingModel
 
 @{
     List<ForumSectionDto> forumSections = (List<ForumSectionDto>) ViewData["Sections"];
+    bool isThumbnailModified = false;
+    bool isCoverModified = false;
+
+    object ToggleThumbnailModification()
+    {
+        return isThumbnailModified = true;
+    }
+
+    object ToggleCoverModification()
+    {
+        Console.WriteLine("ASDJAJSDAJSDs");
+        return isCoverModified = true;
+    }
 }
 
 <div class="create-category-form-holder">
-    <h1 class="forum-content-main-heading">Modify Category</h1>
-    <form class="forum-form" 
-    asp-area="Administration"
+    <h1 class="forum-content-main-heading">Create Category</h1>
+    <form class="forum-form"
+          asp-area="Administration"
           asp-controller="ForumCategoriesAdministration"
-          asp-action="Edit" 
-    method="post">
+          asp-action="Create"
+          enctype="multipart/form-data"
+          method="post">
         <hr class="forum-login-divider" />
-        <div class="forum-form-group">
-            <label asp-for="Name" class="forum-form-label">Name</label>
-            <input asp-for="Name" class="forum-form-control" type="text" name="name" placeholder="Name..." />
-        </div>
-        <div class="forum-form-group">
-            <label asp-for="Description" class="forum-form-label">Description</label>
-            <input asp-for="Description" class="forum-form-control" type="text" name="description" placeholder="Description..." />
-        </div>
-        <div class="forum-form-group">
-            <label asp-for="ThumbnailImageUrl" class="forum-form-label">Thumbnail Image</label>
-            <input asp-for="ThumbnailImageUrl" class="forum-form-control" type="text" name="thumbnailImageUrl" placeholder="Thumbnail Image..." />
-        </div>
-        <div class="forum-form-group">
-            <label asp-for="CoverImageUrl" class="forum-form-label">Cover Image</label>
-            <input asp-for="CoverImageUrl" class="forum-form-control" type="text" name="coverImageUrl" placeholder="Cover Image..." />
-        </div>
-        <div class="forum-form-group">
-            <label class="forum-form-label">Section</label>
-            <select asp-for="Section.Id" class="forum-form-control">
-                <option value="0" disabled selected>--- Select Section ---</option>
-                @foreach(var forumSection in forumSections) {
-                    <option value="@forumSection.Id">@forumSection.Name</option>
-                }
-            </select>
+        <div class="forum-create-category-form-content">
+            <div class="forum-create-category-main-info">
+                <div class="forum-form-group">
+                    <label asp-for="Name" class="forum-form-label">Name</label>
+                    <input asp-for="Name" class="forum-form-control" type="text" name="name" placeholder="Name..." />
+                </div>
+                <div class="forum-form-group">
+                    <label asp-for="Description" class="forum-form-label">Description</label>
+                    <textarea style="resize: none;" rows="15" asp-for="Description" class="forum-form-control" type="text" name="description" placeholder="Description..."></textarea>
+                </div>
+                <div class="forum-form-group">
+                    <label class="forum-form-label">Section</label>
+                    <select asp-for="SectionId" class="forum-form-control">
+                        <option value="0" disabled selected>--- Select Section ---</option>
+                        @foreach (var forumSection in forumSections)
+                        {
+                            <option value="@forumSection.Id">@forumSection.Name</option>
+                        }
+                    </select>
+                </div>
+            </div>
+            <div class="forum-create-category-image-info">
+                <div class="forum-form-group">
+                    <label asp-for="ThumbnailImage" class="forum-form-label">Thumbnail Image</label>
+                    <div class="forum-file-upload-container" style="display: none;">
+                        <div class="forum-file-upload-icon-holder">
+                            <img class="forum-file-upload-icon" src="~/images/icons/upload-icon.svg" />
+                        </div>
+                        <h1 class="forum-file-upload-primary-caption">Drag & Drop any file here...</h1>
+                        <h1 class="forum-file-upload-secondary-caption">
+                            Or
+                            <label class="forum-file-upload-inline-label">
+                                <input type="file" class="forum-file-upload-inline-input" asp-for="ThumbnailImage">
+                                browse file
+                            </label>
+                            from your device.
+                        </h1>
+                    </div>
+                    <div class="forum-file-upload-container">
+                        <img src="~/images/icons/edit-icon.svg" class="forum-file-upload-current-image-edit-icon">
+                        <img src="@Model.ThumbnailImageUrl" class="forum-file-upload-current-image">
+                    </div>
+                </div>
+                <div class="forum-form-group">
+                    <label asp-for="CoverImage" class="forum-form-label">Cover Image</label>
+                    <div class="forum-file-upload-container" style="display: none;">
+                        <div class="forum-file-upload-icon-holder">
+                            <img class="forum-file-upload-icon" src="~/images/icons/upload-icon.svg" />
+                        </div>
+                        <h1 class="forum-file-upload-primary-caption">Drag & Drop any file here...</h1>
+                        <h1 class="forum-file-upload-secondary-caption">
+                            Or
+                            <label class="forum-file-upload-inline-label">
+                                <input type="file" class="forum-file-upload-inline-input" asp-for="CoverImage">
+                                browse file
+                            </label>
+                            from your device.
+                        </h1>
+                    </div>
+                    <div class="forum-file-upload-container">
+                        <img src="~/images/icons/edit-icon.svg" class="forum-file-upload-current-image-edit-icon">
+                        <img src="@Model.CoverImageUrl" class="forum-file-upload-current-image">
+                    </div>
+                </div>
+            </div>
         </div>
         <hr class="forum-login-divider" />
         <div class="forum-form-buttons">
-            <button class="forum-form-button">Modify Category</button>
+            <button class="forum-form-button">Create Category</button>
             <a asp-area="Administration" asp-controller="AdministrationPanelController" asp-action="Index" class="forum-form-button">Admin Panel</a>
         </div>
     </form>
 </div>
+<script>
+    const uploadContainers = document.querySelectorAll('.forum-file-upload-container');
+    const editIcons = document.querySelectorAll('.forum-file-upload-current-image-edit-icon');
+
+    editIcons.forEach(editIcon => {
+        editIcon.addEventListener('click', (e) => {
+            e.target.parentElement.parentElement.children[1].style.display = 'block';
+            e.target.parentElement.parentElement.children[2].style.display = 'none';
+        });
+    });
+
+    uploadContainers.forEach(uploadContainer => {
+        const uploadContainerPrimaryCaption = uploadContainer.querySelector('.forum-file-upload-primary-caption');
+
+
+        uploadContainer.addEventListener('dragenter', (e) => {
+            e.preventDefault();
+            uploadContainer.classList.add('dragged-over');
+            uploadContainerPrimaryCaption.textContent = 'Drop your file here...';
+        });
+
+        uploadContainer.addEventListener('dragover', (e) => {
+            e.preventDefault();
+            uploadContainerPrimaryCaption.textContent = 'Drop your file here...';
+        });
+
+        uploadContainer.addEventListener('dragleave', (e) => {
+            uploadContainer.classList.remove('dragged-over');
+            uploadContainerPrimaryCaption.textContent = 'Drag & Drop any file here...';
+        });
+
+        uploadContainer.addEventListener('drop', (e) => {
+            e.preventDefault();
+            e.stopPropagation();
+            uploadContainer.querySelector('.forum-file-upload-inline-input').files = e.dataTransfer.files;
+        });
+    });
+</script>

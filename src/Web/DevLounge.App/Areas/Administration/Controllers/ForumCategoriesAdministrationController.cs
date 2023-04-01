@@ -2,6 +2,8 @@
 using DevLounge.Service.Data.ForumSections;
 using DevLounge.Service.Models.ForumCategories;
 using DevLounge.Service.Models.ForumUsers;
+using DevLounge.Web.Mapping.Administration.ForumCategories;
+using DevLounge.Web.Models.Administration.ForumCategories;
 using Microsoft.AspNetCore.Mvc;
 using System.Security.Claims;
 
@@ -31,14 +33,19 @@ namespace DevLounge.Web.Areas.Administration.Controllers
         }
 
         [HttpPost("Create")]
-        public async Task<IActionResult> Create(ForumCategoryDto forumCategoryDto)
+        public async Task<IActionResult> Create(CreateForumCategoryBindingModel createForumCategoryBindingModel)
         {
+            ForumCategoryDto forumCategoryDto = createForumCategoryBindingModel.ToDto();
+
             forumCategoryDto.CreatedBy = new DevLoungeUserDto
             {
                 Id = this.User.FindFirst(ClaimTypes.NameIdentifier).Value
             };
 
-            await this.forumCategoryService.CreateForumCategory(forumCategoryDto);
+            await this.forumCategoryService.CreateForumCategory(
+                forumCategoryDto,
+                createForumCategoryBindingModel.ThumbnailImage, 
+                createForumCategoryBindingModel.CoverImage);
 
             return Redirect("/Administration/Home");
         }
@@ -48,13 +55,15 @@ namespace DevLounge.Web.Areas.Administration.Controllers
         {
             this.ViewData["Sections"] = this.forumSectionService.GetAllForumSections().ToList();
 
-            return View(await this.forumCategoryService.GetForumCategoryById(id));
+            return View((await this.forumCategoryService.GetForumCategoryById(id)).ToWebModel());
         }
 
         [HttpPost("Edit/{id}")]
-        public async Task<IActionResult> Edit(long id, ForumCategoryDto forumCategoryDto)
+        public async Task<IActionResult> Edit(long id, CreateForumCategoryBindingModel createForumCategoryBindingModel)
         {
-            await this.forumCategoryService.UpdateForumCategory(id, forumCategoryDto);
+            ForumCategoryDto forumCategoryDto = createForumCategoryBindingModel.ToDto();
+
+            // await this.forumCategoryService.UpdateForumCategory(id, forumCategoryDto);
 
             return Redirect("/Administration/Home");
         }
