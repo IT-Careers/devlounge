@@ -117,7 +117,11 @@ namespace DevLounge.Service.Data.ForumCategories
             return forumCategory.ToDto();
         }
 
-        public async Task<ForumCategoryDto> UpdateForumCategory(long id, ForumCategoryDto forumCategoryDto)
+        public async Task<ForumCategoryDto> UpdateForumCategory(
+            long id, 
+            ForumCategoryDto forumCategoryDto, 
+            IFormFile thumbnailImage, 
+            IFormFile coverImage)
         {
             ForumCategory forumCategory = await this.forumCategoryRepository.RetrieveAllTracked()
                 .Include(category => category.Section)
@@ -133,8 +137,29 @@ namespace DevLounge.Service.Data.ForumCategories
             forumCategory.Section = (await this.forumSectionRepository.RetrieveAllTracked()
                 .SingleOrDefaultAsync(section => section.Id == forumCategoryDto.Section.Id));
 
-            // TODO: Change Images
-            
+            // TODO: Repetition of code. Refactor this...
+            if(thumbnailImage != null)
+            {
+                var thumbnailUploadResult = await this.cloudinaryService.UploadFile(thumbnailImage);
+
+                forumCategory.ThumbnailImage = await forumAttachmentsRepository.AddAsync(new ForumAttachment
+                {
+                    FileUrl = thumbnailUploadResult["url"].ToString(),
+                    IsImage = true
+                });
+            }
+
+            if(coverImage != null)
+            {
+                var coverUploadResult = await this.cloudinaryService.UploadFile(coverImage);
+
+                forumCategory.CoverImage = await forumAttachmentsRepository.AddAsync(new ForumAttachment
+                {
+                    FileUrl = coverUploadResult["url"].ToString(),
+                    IsImage = true
+                });
+            }
+
             await this.forumCategoryRepository.EditAsync(forumCategory);
 
             return forumCategory.ToDto();

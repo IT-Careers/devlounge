@@ -2,19 +2,6 @@
 
 @{
     List<ForumSectionDto> forumSections = (List<ForumSectionDto>) ViewData["Sections"];
-    bool isThumbnailModified = false;
-    bool isCoverModified = false;
-
-    object ToggleThumbnailModification()
-    {
-        return isThumbnailModified = true;
-    }
-
-    object ToggleCoverModification()
-    {
-        Console.WriteLine("ASDJAJSDAJSDs");
-        return isCoverModified = true;
-    }
 }
 
 <div class="create-category-form-holder">
@@ -22,7 +9,8 @@
     <form class="forum-form"
           asp-area="Administration"
           asp-controller="ForumCategoriesAdministration"
-          asp-action="Create"
+          asp-action="Edit"
+          asp-route-id="@Model.Id"
           enctype="multipart/form-data"
           method="post">
         <hr class="forum-login-divider" />

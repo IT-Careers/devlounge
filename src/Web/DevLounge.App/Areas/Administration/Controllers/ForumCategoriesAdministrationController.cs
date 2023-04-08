@@ -63,7 +63,11 @@ namespace DevLounge.Web.Areas.Administration.Controllers
         {
             ForumCategoryDto forumCategoryDto = createForumCategoryBindingModel.ToDto();
 
-            // await this.forumCategoryService.UpdateForumCategory(id, forumCategoryDto);
+            await this.forumCategoryService.UpdateForumCategory(
+                id, 
+                forumCategoryDto, 
+                createForumCategoryBindingModel.ThumbnailImage, 
+                createForumCategoryBindingModel.CoverImage);
 
             return Redirect("/Administration/Home");
         }
