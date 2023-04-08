@@ -11,7 +11,7 @@ namespace DevLounge.Service.Data.ForumCategories
 
         Task<ForumCategoryDto> GetForumCategoryById(long id);
 
-        Task<ForumCategoryDto> UpdateForumCategory(long id, ForumCategoryDto forumCategoryDto);
+        Task<ForumCategoryDto> UpdateForumCategory(long id, ForumCategoryDto forumCategoryDto, IFormFile thumbnailImage, IFormFile coverImage);
 
         Task<ForumCategoryDto> DeleteForumCategory(long id);
     }

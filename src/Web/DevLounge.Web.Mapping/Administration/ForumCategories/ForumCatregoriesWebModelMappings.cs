@@ -1,6 +1,7 @@
 ﻿using DevLounge.Service.Models.ForumCategories;
 using DevLounge.Service.Models.ForumSections;
 using DevLounge.Web.Models.Administration.ForumCategories;
+using System.Data.Common;
 
 namespace DevLounge.Web.Mapping.Administration.ForumCategories
 {
@@ -23,6 +24,7 @@ namespace DevLounge.Web.Mapping.Administration.ForumCategories
         {
             return new CreateForumCategoryBindingModel
             {
+                Id = forumCategoryDto.Id,
                 Name = forumCategoryDto.Name,
                 Description = forumCategoryDto.Description,
                 SectionId = forumCategoryDto.Section.Id,
