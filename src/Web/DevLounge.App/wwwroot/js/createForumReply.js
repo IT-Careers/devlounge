@@ -53,12 +53,42 @@ const forumReplyTemplate =
                 $content
             </main>
             <footer>
-                <button class="forum-thread-details-button">Reply</button>
+                <button class="forum-thread-details-button forum-thread-details-reply-button">Reply</button>
+            </footer>
+        </main>
+    </div>`;
+
+const forumReplyCreationTemplate =
+    `<div class="forum-thread-reply">
+        <header class="forum-reply-to-reply-header">
+        </header>
+        <main>
+            <main>
+                <textarea id="forum-post-reply-to-reply-content" class="forum-thread-post-reply-discussion" placeholder="Write your reply..." name="discussion"></textarea>
+            </main>
+            <footer>
+                <button id="forum-post-reply-to-reply-post-button" class="forum-thread-details-button">Post Reply</button>
             </footer>
         </main>
     </div>`;
 
 const forumPostReplyButton = document.querySelector('#forum-post-reply-post-button');
+//document.querySelector('.forum-thread-details-button').parentElement.parentElement.parentElement.nextSibling.nextSibling
+const forumReplyButtons = document.querySelectorAll('.forum-thread-details-reply-button');
+
+forumReplyButtons.forEach(replyButton => {
+    replyButton.addEventListener('click', (e) => {
+        const forumReplyToBeRepliedTo = e.target.parentElement.parentElement.parentElement;
+        const forumReplies = e.target.parentElement.parentElement.parentElement.parentElement;
+        const nextReplySibling = forumReplyToBeRepliedTo.nextSibling.nextSibling;
+        if (nextReplySibling) {
+            forumReplies.insertBefore(createNode(forumReplyCreationTemplate), nextReplySibling);
+            // Is not last
+        } else {
+            // is last
+        }
+    });
+});
 
 forumPostReplyButton.addEventListener('click', () => {
     const urlFragments = window.location.href.split("/");
