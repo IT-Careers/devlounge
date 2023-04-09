@@ -1139,6 +1139,10 @@ a {
     padding-right: 3px;
 }
 
+.nesting-container {
+    margin: 10px 0 20px 20px;
+}
+
 /* Forum Internal Routing Styling */
 .forum-internal-routing {
     display: flex;
