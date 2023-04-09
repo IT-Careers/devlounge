@@ -21,7 +21,7 @@ namespace DevLounge.Web
             var connectionString = builder.Configuration.GetConnectionString("DefaultConnection");
 
             builder.Services.AddDbContext<DevLoungeDbContext>(options =>
-                options.UseSqlServer(connectionString));
+                options.UseNpgsql(connectionString));
 
             // Forum Repositories
             builder.Services.AddTransient<ForumSectionsRepository, ForumSectionsRepository>();

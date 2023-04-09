@@ -23,7 +23,7 @@ namespace DevLounge.Data
 
         protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
         {
-            optionsBuilder.UseSqlServer("Server=.\\SQLEXPRESS;Database=dev_lounge_db;Trusted_Connection=True;MultipleActiveResultSets=true");
+            optionsBuilder.UseNpgsql("Host=localhost;Username=postgres;Password=postgres;Database=public");
 
             base.OnConfiguring(optionsBuilder);
         }
