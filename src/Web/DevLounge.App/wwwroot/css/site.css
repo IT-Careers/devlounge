@@ -1133,8 +1133,17 @@ a {
         background-color: var(--dark-blue-color);
     }
 
-/* Forum Internal Routing Styling */
+.forum-thread-details-container .forum-thread-reply > .forum-reply-to-reply-header {
+    background: transparent;
+    border-right: 0px;
+    padding-right: 3px;
+}
 
+.nesting-container {
+    margin: 10px 0 20px 20px;
+}
+
+/* Forum Internal Routing Styling */
 .forum-internal-routing {
     display: flex;
     flex-direction: row;

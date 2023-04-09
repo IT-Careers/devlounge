@@ -4,6 +4,7 @@
 @inject ITimestampMappingUtility timestampMappingUtility
 
 @{
+    const string NestedReplyDelimiter = "<=>&<=>&<=>&<=>";
     DevLoungeUserDto currentUser = (DevLoungeUserDto) this.ViewData["CurrentUser"];
     currentUser.RepliesCreated = currentUser.RepliesCreated ?? new List<ForumReplyDto>();
     currentUser.ThreadsCreated = currentUser.ThreadsCreated ?? new List<ForumThreadDto>();
@@ -15,6 +16,48 @@
         [Model.Category.Name] = "/Categories/" + Model.Category.Id,
         [Model.Title] = "/Threads/" + Model.Id
     };
+}
+
+@{
+    object RenderNestedReplies(int currentIndex, List<string> nestedReplies) {
+        if (currentIndex < nestedReplies.Count) {
+            var splitReply = nestedReplies[currentIndex].Trim().Split(new string[] { "\r\n", "\n" }, StringSplitOptions.RemoveEmptyEntries);
+
+            <div class="nesting-container">
+                @if(splitReply.Length != 4) {
+                    <div>
+                    <h1>@nestedReplies[currentIndex]</h1>
+                        Invalid Reply
+                    </div>
+                }
+                else 
+                {
+                    <div class="forum-thread-reply">
+                        <header>
+                            <img class="forum-thread-reply-user-thumbnail" src="/images/icons/default-user-thumbnail.png" alt="" />
+                            <h1 class="forum-thread-reply-user-name">@splitReply[0]</h1>
+                        </header>
+                        <main>
+                            <header>
+                                <span class="forum-reply-timestamp">@splitReply[1]</span>
+                                <div class="forum-reply-index-actions">
+                                    <div><img class="forum-reply-index-actions-share" src="/images/icons/share.svg" alt="..." /></div>
+                                    <div><a class="forum-reply-index-actions-hyperlink" href="#forum-thread-reply-@splitReply[2]">#@splitReply[2]</a></div>
+                                </div>
+                            </header>
+                            <main>
+                                @splitReply[3]
+                            </main>
+                        </main>
+                    </div>
+                }
+
+                @RenderNestedReplies(++currentIndex, nestedReplies)
+            </div>
+        }
+
+        return "";
+    }
 }
 
 <div class="forum-thread-details-container">
@@ -58,14 +101,30 @@
                             <span class="forum-reply-timestamp">@timestampMappingUtility.MapTimestamp(reply.CreatedOn)</span>
                             <div class="forum-reply-index-actions">
                                 <div><img class="forum-reply-index-actions-share" src="~/images/icons/share.svg" alt="..." /></div>
-                                <div><a class="forum-reply-index-actions-hyperlink" href="@(Context.Request.Path.ToString() + "#forum-thread-reply-" + reply.Id)">#@reply.Id</a></div>
+                                <div><a class="forum-reply-index-actions-hyperlink" href="#forum-thread-reply-@reply.Id">#@reply.Id</a></div>
                             </div>
                         </header>
                         <main>
-                            @reply.Content
+                            @if (reply.Content.Contains(NestedReplyDelimiter))
+                            {
+                                var nestedReplies = reply.Content.Split(NestedReplyDelimiter, StringSplitOptions.RemoveEmptyEntries)
+                                    .Select(nestedReply => nestedReply.Trim())
+                                    .Where(nestedReply => nestedReply.Length > 0)
+                                    .ToList();
+                                var replyContent = nestedReplies[nestedReplies.Count - 1];
+                                nestedReplies.RemoveAt(nestedReplies.Count - 1);
+
+                                <div class="nesting-content" style="display: none">@reply.Content</div>
+                                @RenderNestedReplies(0, nestedReplies)
+                                @replyContent
+                            }
+                            else 
+                            {
+                                @reply.Content;
+                            }
                         </main>
                         <footer>
-                            <button class="forum-thread-details-button">Reply</button>
+                            <button class="forum-thread-details-button forum-thread-details-reply-button">Reply</button>
                         </footer>
                     </main>
                 </div>

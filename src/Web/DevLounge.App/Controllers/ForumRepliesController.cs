@@ -4,6 +4,7 @@ using DevLounge.Web.Mapping.ForumReplies;
 using DevLounge.Web.Models.ForumReplies;
 using Microsoft.AspNetCore.Mvc;
 using System.Security.Claims;
+using System.Text.Encodings.Web;
 
 namespace DevLounge.Web.Controllers
 {
@@ -12,10 +13,21 @@ namespace DevLounge.Web.Controllers
     public class ForumRepliesController : BaseUserController
     {
         private readonly IForumRepliesService forumRepliesService;
+        private readonly JavaScriptEncoder javaScriptEncoder;
 
-        public ForumRepliesController(IForumRepliesService forumRepliesService)
+        public ForumRepliesController(IForumRepliesService forumRepliesService, JavaScriptEncoder javaScriptEncoder)
         {
             this.forumRepliesService = forumRepliesService;
+            this.javaScriptEncoder = javaScriptEncoder;
+        }
+
+        // TODO: Currently we are not considering threadId, in future we should return error response.
+        [HttpGet("{id}")]
+        public async Task<IActionResult> Details([FromRoute] long threadId, [FromRoute] long id)
+        {
+            ForumReplyDto result = await this.forumRepliesService.GetForumReplyById(id);
+
+            return this.Json(result);
         }
 
         [HttpPost("Create")]
